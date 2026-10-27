@@ -1,0 +1,72 @@
+
+services:
+  # Banco de dados PostgreSQL
+  db:
+    image: postgres:16-alpine
+    container_name: invest_ia_db
+    restart: always
+    environment:
+      POSTGRES_DB: invest_ia
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d invest_ia"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - invest_ia_network
+
+  # Interface de administracao do PostgreSQL
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: invest_ia_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - invest_ia_network
+
+  # Aplicacao Streamlit
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: invest_ia_app
+    restart: always
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: invest_ia
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      PYTHONUNBUFFERED: "1"
+      PYTHONPATH: /app
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    networks:
+      - invest_ia_network
+
+# Rede compartilhada entre os servicos
+networks:
+  invest_ia_network:
+    driver: bridge
+
+# Volume persistente
+volumes:
+  postgres_data:
