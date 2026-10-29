@@ -2,7 +2,7 @@ import sys
 import time
 import anthropic
 from sqlalchemy import text
-from config.settings import ANTHROPIC_API_KEY
+from src.models.Parametros import ANTHROPIC_API_KEY
 from src.models.base import engine, criarTabelas
 from src.models.services.AnaliseService import AnaliseService
 from src.models.services.ClaudeService import ClaudeService
@@ -36,7 +36,9 @@ class Diagnostico:
             detalhe = funcao()
             print(f"[ OK  ] {nome} ({time.time() - inicio:.1f}s) {detalhe or ''}")
         except Exception as erro:
-            print(f"[FALHA] {nome} ({time.time() - inicio:.1f}s) -> {type(erro).__name__}: {erro}")
+            print(
+                f"[FALHA] {nome} ({time.time() - inicio:.1f}s) -> {type(erro).__name__}: {erro}"
+            )
             if grupo not in self.falhas:
                 self.falhas.append(grupo)
 
@@ -53,7 +55,9 @@ class Diagnostico:
     def testarInfo(self) -> str:
         stock = self.yahoo.buscarInfo(ITEM_TESTE)
         if stock.nome == ITEM_TESTE:
-            raise RuntimeError("o Yahoo não devolveu o nome da empresa (dados da empresa indisponíveis)")
+            raise RuntimeError(
+                "o Yahoo não devolveu o nome da empresa (dados da empresa indisponíveis)"
+            )
         return f"({stock.nome} | {stock.setor})"
 
     def testarCotacao(self) -> str:
@@ -93,10 +97,18 @@ class Diagnostico:
         self.etapa("Yahoo Finance - dados da empresa", "yahoo", self.testarInfo)
         self.etapa("Yahoo Finance - cotação atual", "yahoo", self.testarCotacao)
         if self.historico is not None:
-            self.etapa("Indicadores técnicos (RSI, MACD, médias)", "yahoo", self.testarIndicadores)
+            self.etapa(
+                "Indicadores técnicos (RSI, MACD, médias)",
+                "yahoo",
+                self.testarIndicadores,
+            )
         self.etapa("Claude (chamada mínima à API)", "claude", self.testarClaude)
         if completo and not self.falhas:
-            self.etapa("Análise completa (Yahoo, indicadores, Claude e banco)", "claude", self.testarAnaliseCompleta)
+            self.etapa(
+                "Análise completa (Yahoo, indicadores, Claude e banco)",
+                "claude",
+                self.testarAnaliseCompleta,
+            )
 
         print()
         if not self.falhas:

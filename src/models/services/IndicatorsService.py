@@ -1,7 +1,7 @@
+import numpy as np
 import pandas as pd
-import pandas_ta as ta
 from src.models.entities.StockEntity import IndicatorsEntity
-from config.settings import (
+from src.models.Parametros import (
     RSI_PERIOD,
     MACD_FAST,
     MACD_SLOW,
@@ -17,24 +17,48 @@ MENSAGEM_HISTORICO = "Histórico insuficiente para calcular os indicadores. Esco
 
 class IndicatorsService:
 
+    def sma(self, fechamento: pd.Series, periodo: int) -> pd.Series:
+        return fechamento.rolling(window=periodo).mean()
+
+    def ema(self, serie: pd.Series, periodo: int) -> pd.Series:
+        valores = serie.to_numpy(dtype=float)
+        validos = ~np.isnan(valores)
+        resultado = pd.Series(np.nan, index=serie.index)
+        if not validos.any():
+            return resultado
+
+        inicio = int(validos.argmax())
+        semente = inicio + periodo - 1
+        if semente >= len(valores):
+            return resultado
+
+        base = valores.copy()
+        base[:semente] = np.nan
+        base[semente] = valores[inicio : semente + 1].mean()
+        return pd.Series(base, index=serie.index).ewm(span=periodo, adjust=False).mean()
+
+    def rsi(self, fechamento: pd.Series, periodo: int) -> pd.Series:
+        variacao = fechamento.diff()
+        ganhos = variacao.clip(lower=0)
+        perdas = (-variacao).clip(lower=0)
+        mediaGanhos = ganhos.ewm(alpha=1 / periodo, adjust=False).mean()
+        mediaPerdas = perdas.ewm(alpha=1 / periodo, adjust=False).mean()
+        return 100 * mediaGanhos / (mediaGanhos + mediaPerdas)
+
+    def macd(self, fechamento: pd.Series, rapida: int, lenta: int, sinal: int) -> pd.DataFrame:
+        linha = self.ema(fechamento, rapida) - self.ema(fechamento, lenta)
+        linhaSinal = self.ema(linha, sinal)
+        return pd.DataFrame({"MACD": linha, "MACD_Sig": linhaSinal, "MACD_Hist": linha - linhaSinal})
+
     def calcular(self, item: str, historico: pd.DataFrame) -> IndicatorsEntity:
         if len(historico) < SMA_LONG + 2:
             raise ValueError(MENSAGEM_HISTORICO)
 
         df = historico.copy()
-
-        df["RSI"] = ta.rsi(df["Close"], length=RSI_PERIOD)
-
-        macd = ta.macd(df["Close"], fast=MACD_FAST, slow=MACD_SLOW, signal=MACD_SIGNAL)
-        if macd is None:
-            raise ValueError(MENSAGEM_HISTORICO)
-        sufixo = f"{MACD_FAST}_{MACD_SLOW}_{MACD_SIGNAL}"
-        df["MACD"] = macd[f"MACD_{sufixo}"]
-        df["MACD_Sig"] = macd[f"MACDs_{sufixo}"]
-        df["MACD_Hist"] = macd[f"MACDh_{sufixo}"]
-
-        df[f"SMA{SMA_SHORT}"] = ta.sma(df["Close"], length=SMA_SHORT)
-        df[f"SMA{SMA_LONG}"] = ta.sma(df["Close"], length=SMA_LONG)
+        df["RSI"] = self.rsi(df["Close"], RSI_PERIOD)
+        df = df.join(self.macd(df["Close"], MACD_FAST, MACD_SLOW, MACD_SIGNAL))
+        df[f"SMA{SMA_SHORT}"] = self.sma(df["Close"], SMA_SHORT)
+        df[f"SMA{SMA_LONG}"] = self.sma(df["Close"], SMA_LONG)
 
         df = df.dropna()
         if len(df) < 2:

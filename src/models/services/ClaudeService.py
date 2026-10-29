@@ -3,7 +3,7 @@ import os
 import re
 from typing import Optional
 import anthropic
-from config.settings import ANTHROPIC_API_KEY, CLAUDE_MODEL
+from src.models.Parametros import ANTHROPIC_API_KEY, CLAUDE_MODEL
 from src.models.entities.RecomendacoesEntity import RecomendacoesEntity, TipoRecomendacao
 from src.models.entities.StockEntity import StockEntity, IndicatorsEntity
 

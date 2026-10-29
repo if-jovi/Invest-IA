@@ -4,7 +4,7 @@ from src.models.entities.OperacoesEntity import OperacoesEntity
 from src.models.services.YfinanceService import YfinanceService
 from src.models.services.IndicatorsService import IndicatorsService
 from src.models.services.ItensB3Service import ItensB3Service
-from config.settings import RSI_OVERBOUGHT
+from src.models.Parametros import RSI_OVERBOUGHT
 
 
 class BacktestService:

@@ -3,7 +3,7 @@ import time
 from typing import Optional
 import pandas as pd
 import yfinance as yf
-from config.settings import DEFAULT_PERIOD, DEFAULT_INTERVAL
+from src.models.Parametros import DEFAULT_PERIOD, DEFAULT_INTERVAL
 from src.models.entities.StockEntity import StockEntity
 
 logger = logging.getLogger(__name__)

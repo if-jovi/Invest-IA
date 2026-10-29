@@ -3,7 +3,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# PostgreSQL
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+CLAUDE_MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-5-5")
+
 DB_CONFIG = {
     "host": os.getenv("DB_HOST", "db"),
     "port": int(os.getenv("DB_PORT", "5432")),
@@ -12,10 +14,15 @@ DB_CONFIG = {
     "password": os.getenv("DB_PASSWORD", "postgres"),
 }
 
-# Yahoo Finance
+RSI_PERIOD = 14
+MACD_FAST = 12
+MACD_SLOW = 26
+MACD_SIGNAL = 9
+SMA_SHORT = 20
+SMA_LONG = 50
+
+RSI_OVERSOLD = 30
+RSI_OVERBOUGHT = 70
+
 DEFAULT_PERIOD = "1y"
 DEFAULT_INTERVAL = "1d"
-
-# Anthropic / Claude
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
-CLAUDE_MODEL = os.getenv("CLAUDE_MODEL", "claude-3-5-sonnet-20241022")

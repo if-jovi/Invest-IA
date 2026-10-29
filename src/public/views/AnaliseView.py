@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-from config.settings import SMA_SHORT, SMA_LONG
+from src.models.Parametros import SMA_SHORT, SMA_LONG
 from src.controllers.AnaliseController import AnaliseController
 from src.controllers.ItensCarteiraController import ItensCarteiraController
 from src.public.views import Paginas
@@ -12,8 +12,7 @@ ROTULOS_PERIODO = {"3mo": "3 meses", "6mo": "6 meses", "1y": "1 ano", "2y": "2 a
 
 def renderIntroducao() -> None:
     st.info("Informe o código de uma ação da B3 e clique em Analisar.")
-    st.markdown(
-        """
+    st.markdown("""
 | Etapa | O que acontece |
 |-------|----------------|
 | 1. Entrada | Você informa o código do ativo (ex.: PETR4) |
@@ -21,8 +20,7 @@ def renderIntroducao() -> None:
 | 3. Indicadores | RSI, MACD e médias móveis são calculados |
 | 4. Interpretação | A IA traduz os indicadores em linguagem simples |
 | 5. Resultado | COMPRA, VENDA ou MANTER, com a justificativa |
-"""
-    )
+""")
 
 
 def renderRecomendacao(recomendacao: dict, doCache: bool) -> None:
@@ -58,11 +56,17 @@ def renderIndicadores(ind) -> None:
     colunas = st.columns(4)
     colunas[0].metric("RSI (14)", f"{ind.rsi}", delta=ind.sinal_rsi, delta_color="off")
     colunas[1].metric(
-        "MACD", f"{ind.macd:.4f}", delta=f"cruzamento de {ind.macd_cruzamento}", delta_color="off"
+        "MACD",
+        f"{ind.macd:.4f}",
+        delta=f"cruzamento de {ind.macd_cruzamento}",
+        delta_color="off",
     )
     colunas[2].metric(f"Média {SMA_SHORT}", moeda(ind.sma_short))
     colunas[3].metric(
-        f"Média {SMA_LONG}", moeda(ind.sma_long), delta=f"tendência de {ind.tendencia_sma}", delta_color="off"
+        f"Média {SMA_LONG}",
+        moeda(ind.sma_long),
+        delta=f"tendência de {ind.tendencia_sma}",
+        delta_color="off",
     )
 
     with st.expander("Como ler estes indicadores"):
@@ -106,7 +110,11 @@ def renderRegistroCompra(usuario: dict, item: str) -> None:
         with st.form("formCompraAnalise", clear_on_submit=True):
             quantidade = st.number_input("Quantidade", min_value=1, value=100, step=1)
             preco = st.number_input(
-                "Preço unitário (R$)", min_value=0.01, value=10.00, step=0.01, format="%.2f"
+                "Preço unitário (R$)",
+                min_value=0.01,
+                value=10.00,
+                step=0.01,
+                format="%.2f",
             )
             enviar = st.form_submit_button("Registrar compra", type="primary")
 
@@ -118,10 +126,14 @@ def renderRegistroCompra(usuario: dict, item: str) -> None:
             except (ValueError, RuntimeError) as erro:
                 st.error(str(erro))
             else:
-                st.success(f"Compra de {quantidade} unidade(s) de {item} registrada na carteira.")
+                st.success(
+                    f"Compra de {quantidade} unidade(s) de {item} registrada na carteira."
+                )
 
 
-def renderResultado(controller: AnaliseController, resultado: dict, usuario: dict) -> None:
+def renderResultado(
+    controller: AnaliseController, resultado: dict, usuario: dict
+) -> None:
     ativo, ind = resultado["ativo"], resultado["indicadores"]
 
     colunas = st.columns([2, 1, 1])
@@ -156,17 +168,26 @@ def renderAnalise() -> None:
 
     colunas = st.columns([2, 1, 1])
     item = colunas[0].text_input(
-        "Código do ativo na B3", key=Paginas.CHAVE_ANALISE, placeholder="Ex.: PETR4, VALE3, ITUB4"
+        "Código do ativo na B3",
+        key=Paginas.CHAVE_ANALISE,
+        placeholder="Ex.: PETR4, VALE3, ITUB4",
     )
     periodo = colunas[1].selectbox(
-        "Período", list(ROTULOS_PERIODO), index=2, format_func=lambda p: ROTULOS_PERIODO[p]
+        "Período",
+        list(ROTULOS_PERIODO),
+        index=2,
+        format_func=lambda p: ROTULOS_PERIODO[p],
     )
-    forcar = colunas[2].checkbox("Gerar nova análise", help="Ignora a recomendação já gerada hoje.")
+    forcar = colunas[2].checkbox(
+        "Gerar nova análise", help="Ignora a recomendação já gerada hoje."
+    )
 
     if st.button("Analisar", type="primary"):
         try:
             with st.spinner(f"Analisando {item.strip().upper()}..."):
-                st.session_state["analiseResultado"] = controller.analisar(item, periodo, forcar)
+                st.session_state["analiseResultado"] = controller.analisar(
+                    item, periodo, forcar
+                )
         except (ValueError, RuntimeError) as erro:
             st.error(str(erro))
         except Exception as erro:
