@@ -1,3 +1,4 @@
+name: invest-ia
 
 services:
   # Banco de dados PostgreSQL
@@ -27,8 +28,10 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json:ro
     ports:
-      - "5050:80"
+      - "5051:80"
     depends_on:
       db:
         condition: service_healthy
