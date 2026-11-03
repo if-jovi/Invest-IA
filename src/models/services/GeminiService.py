@@ -9,7 +9,7 @@ from src.models.services.ClaudeService import ClaudeService
 
 logger = logging.getLogger(__name__)
 
-MODELO_PADRAO = "gemini-2.5-flash"
+MODELO_PADRAO = "gemini-3.8-flash"
 TIMEOUT_MS = 60000
 TENTATIVAS = 3
 MAXIMO_TOKENS = 8192
@@ -43,6 +43,12 @@ class GeminiService(ClaudeService):
             if codigo == 400 and "location" in mensagem:
                 return RuntimeError(
                     "A API do Gemini não está disponível na sua região para esta chave."
+                )
+            if codigo == 403 and ("billing" in mensagem or "free tier" in mensagem):
+                return RuntimeError(
+                    "O projeto desta chave do Gemini não tem acesso ao plano gratuito. "
+                    "Ative o faturamento em https://aistudio.google.com/billing "
+                    "ou use uma chave de outro projeto."
                 )
             if codigo == 403:
                 return RuntimeError(

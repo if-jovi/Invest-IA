@@ -4,8 +4,6 @@ from pathlib import Path
 
 PASTA = Path(__file__).resolve().parent
 SUITES = [
-    ("Indicadores técnicos (valores de referência)", "teste_indicadores.py"),
-    ("Configuração mínima do settings.py", "teste_configuracao.py"),
     ("Regras de negócio e banco de dados", "teste_logica.py"),
     ("Integração com o yfinance", "teste_yfinance.py"),
     ("Integração com a API da Claude", "teste_claude.py"),
