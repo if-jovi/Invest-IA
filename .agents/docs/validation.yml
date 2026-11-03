@@ -1,0 +1,7 @@
+# Pipeline de verificação antes do commit.
+# O projeto ainda não tem formatter/linter configurado; os testes rodam no container.
+pre_commit:
+  - id: tests
+    check: docker compose exec app python -m tests.executar_todos
+
+max_fix_iterations: 2
