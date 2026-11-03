@@ -9,3 +9,4 @@ python-dotenv==1.0.1
 plotly==5.22.0
 sqlalchemy==2.0.30
 alembic==1.13.1
+google-genai>=2.0,<3

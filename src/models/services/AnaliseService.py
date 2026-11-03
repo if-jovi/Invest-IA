@@ -1,7 +1,8 @@
 from src.models.services.YfinanceService import YfinanceService
 from src.models.services.IndicatorsService import IndicatorsService
-from src.models.services.ClaudeService import ClaudeService
+from src.models.services.IaService import criarServicoIa
 from src.models.services.ItensB3Service import ItensB3Service
+from google.genai import errors, types
 from src.models.services.RecomendacoesService import RecomendacoesService
 
 
@@ -10,7 +11,7 @@ class AnaliseService:
     def __init__(self):
         self.yfinanceService = YfinanceService()
         self.indicatorsService = IndicatorsService()
-        self.claudeService = ClaudeService()
+        self.claudeService = criarServicoIa()
         self.itensB3Service = ItensB3Service()
         self.recomendacoesService = RecomendacoesService()
 
@@ -40,4 +41,6 @@ class AnaliseService:
         }
 
     def buscarHistorico(self, item: str, limite: int = 20) -> list:
-        return self.recomendacoesService.buscarHistorico(self.itensB3Service.normalizar(item), limite)
+        return self.recomendacoesService.buscarHistorico(
+            self.itensB3Service.normalizar(item), limite
+        )

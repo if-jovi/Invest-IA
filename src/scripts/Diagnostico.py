@@ -6,6 +6,7 @@ from src.models.Parametros import ANTHROPIC_API_KEY
 from src.models.base import engine, criarTabelas
 from src.models.services.AnaliseService import AnaliseService
 from src.models.services.ClaudeService import ClaudeService
+from src.models.services.IaService import criarServicoIa
 from src.models.services.IndicatorsService import IndicatorsService
 from src.models.services.YfinanceService import YfinanceService
 
@@ -18,7 +19,7 @@ DICAS = {
         "(2) yfinance atualizado no requirements.txt (versões antigas levam erro 429); "
         "(3) rede, VPN ou firewall; (4) aguarde alguns minutos se for limite de requisições."
     ),
-    "claude": "Confira ANTHROPIC_API_KEY no .env, o modelo em CLAUDE_MODEL e a internet do container.",
+    "ia": "Confira a chave (GEMINI_API_KEY ou ANTHROPIC_API_KEY), IA_PROVEDOR, o modelo e o saldo/limite no .env.",
 }
 
 
@@ -27,6 +28,7 @@ class Diagnostico:
     def __init__(self):
         self.yahoo = YfinanceService()
         self.claude = ClaudeService()
+        self.ia = criarServicoIa()
         self.falhas = []
         self.historico = None
 
@@ -70,6 +72,11 @@ class Diagnostico:
         ind = IndicatorsService().calcular(ITEM_TESTE, self.historico)
         return f"(RSI {ind.rsi}, MACD de {ind.macd_cruzamento}, tendência de {ind.tendencia_sma})"
 
+    def testarIa(self) -> str:
+        if hasattr(self.ia, "testarConexao"):
+            return self.ia.testarConexao()
+        return self.testarClaude()
+
     def testarClaude(self) -> str:
         if not ANTHROPIC_API_KEY:
             raise ValueError("ANTHROPIC_API_KEY não configurada no .env.")
@@ -102,11 +109,11 @@ class Diagnostico:
                 "yahoo",
                 self.testarIndicadores,
             )
-        self.etapa("Claude (chamada mínima à API)", "claude", self.testarClaude)
+        self.etapa("IA (chamada mínima à API)", "ia", self.testarIa)
         if completo and not self.falhas:
             self.etapa(
-                "Análise completa (Yahoo, indicadores, Claude e banco)",
-                "claude",
+                "Análise completa (Yahoo, indicadores, IA e banco)",
+                "ia",
                 self.testarAnaliseCompleta,
             )
 

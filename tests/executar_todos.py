@@ -4,9 +4,12 @@ from pathlib import Path
 
 PASTA = Path(__file__).resolve().parent
 SUITES = [
+    ("Indicadores técnicos (valores de referência)", "teste_indicadores.py"),
+    ("Configuração mínima do settings.py", "teste_configuracao.py"),
     ("Regras de negócio e banco de dados", "teste_logica.py"),
     ("Integração com o yfinance", "teste_yfinance.py"),
     ("Integração com a API da Claude", "teste_claude.py"),
+    ("Integração com a API do Gemini", "teste_gemini.py"),
     ("Interface Streamlit de ponta a ponta", "teste_interface.py"),
 ]
 
@@ -15,7 +18,10 @@ def executar() -> int:
     resultados = []
     for nome, arquivo in SUITES:
         processo = subprocess.run(
-            [sys.executable, "-u", str(PASTA / arquivo)], capture_output=True, text=True, cwd=PASTA.parent
+            [sys.executable, "-u", str(PASTA / arquivo)],
+            capture_output=True,
+            text=True,
+            cwd=PASTA.parent,
         )
         passou = processo.returncode == 0
         resultados.append((nome, passou))
