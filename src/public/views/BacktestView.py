@@ -70,6 +70,11 @@ def renderResultado(resultado: dict) -> None:
 
     if resultado["persistido"]:
         st.caption("As operações simuladas foram salvas no seu histórico.")
+    elif resultado["operacoes"]:
+        st.warning(
+            "Não foi possível salvar as operações simuladas no seu histórico. "
+            "O resultado acima continua válido; veja o log do servidor para o motivo."
+        )
 
     st.warning(
         "O backtesting simula a estratégia sobre dados históricos. Resultados passados não garantem "

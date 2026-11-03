@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 from src.models.base import Session
 from src.models.entities.OperacoesEntity import OperacoesEntity
@@ -5,6 +6,8 @@ from src.models.services.YfinanceService import YfinanceService
 from src.models.services.IndicatorsService import IndicatorsService
 from src.models.services.ItensB3Service import ItensB3Service
 from src.models.Parametros import RSI_OVERBOUGHT
+
+logger = logging.getLogger(__name__)
 
 
 class BacktestService:
@@ -130,4 +133,5 @@ class BacktestService:
                 session.commit()
             return True
         except Exception:
+            logger.exception("Falha ao salvar as operações do backtest de %s", item)
             return False

@@ -13,6 +13,7 @@ except ImportError:
     sys.modules["pandas_ta"] = pandas_ta_simulado
 os.environ["DATABASE_URL"] = f"sqlite:///{PASTA}/teste.db"
 os.environ["ANTHROPIC_API_KEY"] = "chave-de-teste"
+os.environ["IA_PROVEDOR"] = "claude"
 import numpy as np, pandas as pd, anthropic
 from sqlalchemy import event
 import src.models.base as base

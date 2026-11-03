@@ -80,7 +80,7 @@ com_chave("kok")
 rec = svc.gerarRecomendacao(stock, ind)
 req = requisicoes[0]
 assert req["path"] == "/v1/messages" and req["chave"] == "kok" and req["versao"] == "2023-06-01"
-assert req["corpo"]["model"] == "claude-sonnet-4-6" and req["corpo"]["max_tokens"] == 1500
+assert req["corpo"]["model"] == "claude-sonnet-5-5" and req["corpo"]["max_tokens"] == 1500
 prompt = req["corpo"]["messages"][0]["content"]
 assert req["corpo"]["messages"][0]["role"] == "user" and "PETR4" in prompt and "75.0" in prompt and "sobrecompra" in prompt
 print("OK  requisicao: POST /v1/messages, x-api-key, anthropic-version, modelo, max_tokens e prompt com indicadores")
@@ -107,7 +107,7 @@ def esperar(chave, trecho, tentativas=1):
 
 esperar("k401", "Chave da API da Anthropic inválida")
 esperar("k403", "não tem permissão")
-esperar("k404", "claude-sonnet-4-6' não foi encontrado")
+esperar("k404", "claude-sonnet-5-5' não foi encontrado")
 esperar("k429", "Limite de requisições", tentativas=3)
 esperar("k500", "instabilidade", tentativas=3)
 print("OK  401, 403, 404 (modelo), 429 e 500 viram mensagens em portugues; 429/500 fazem 3 tentativas (1 + 2 retentativas)")
