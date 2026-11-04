@@ -3,12 +3,15 @@
 Sistema de apoio à decisão para investidores iniciantes em ações da B3, desenvolvido
 como TCC. O usuário escolhe uma ação; o sistema busca o histórico de preços no Yahoo
 Finance, calcula indicadores técnicos (RSI, MACD e médias móveis de 20 e 50 períodos)
-e envia tudo para uma IA (Gemini por padrão, ou Claude). A IA responde **COMPRA**,
+e envia tudo para uma IA (por padrão um modelo **NVIDIA Nemotron gratuito via
+OpenRouter**; Gemini e Claude são opcionais). A IA responde **COMPRA**,
 **VENDA** ou **MANTER** e explica em linguagem simples o que a empresa faz, por que os
 indicadores apontam para essa decisão e quais são os riscos.
 
-Também há login, uma carteira de ações com cotação atual e um backtesting da estratégia
-MACD + RSI comparado ao buy and hold.
+Dá para analisar **até 5 ações de uma vez**, com um quadro comparativo. Os campos de
+ativo têm **autocomplete** com as ~377 ações da B3. Também há login, uma carteira com
+**cotação atualizada a cada minuto** (Yahoo Finance, atraso de até 15 min) e um
+backtesting da estratégia MACD + RSI comparado ao buy and hold.
 
 > As recomendações são apoio à decisão para fins acadêmicos e não garantem retorno.
 
@@ -33,7 +36,7 @@ MACD + RSI comparado ao buy and hold.
 | ---------- | -------- |
 | [Git](https://git-scm.com/) | clonar o repositório |
 | [Docker](https://docs.docker.com/get-docker/) com Docker Compose v2 | rodar app, banco e pgAdmin |
-| Chave da API do Gemini | gerar as recomendações ([Google AI Studio](https://aistudio.google.com/apikey)) |
+| Chave da API do OpenRouter | gerar as recomendações com modelo gratuito ([openrouter.ai/keys](https://openrouter.ai/keys)) |
 
 Não é preciso instalar Python nem PostgreSQL na máquina: tudo roda em containers.
 
@@ -51,10 +54,13 @@ cp .env.example .env
 3. Abra o `.env` e preencha a chave:
 
    ```
-   GEMINI_API_KEY=cole_sua_chave_aqui
+   OPENROUTER_API_KEY=cole_sua_chave_aqui
    ```
 
-   As demais variáveis já vêm com valores que funcionam no Docker.
+   As demais variáveis já vêm com valores que funcionam no Docker. Só modelos
+   gratuitos (terminados em `:free`) são aceitos; na conta gratuita o OpenRouter
+   limita a cerca de 50 análises por dia (a recomendação do mesmo ativo no mesmo dia
+   é reaproveitada e não conta de novo).
 
 4. Suba os containers:
 
@@ -83,7 +89,21 @@ Você **não** precisa criar banco nem tabelas manualmente:
 
 - o container `db` (PostgreSQL 16) cria o banco `invest_ia` na primeira subida;
 - o app cria as tabelas (`usuarios`, `carteiras`, `itens_b3`, `itens_carteiras`,
-  `operacoes`, `recomendacoes`) quando é iniciado.
+  `operacoes`, `recomendacoes`) quando é iniciado e carrega o catálogo de ações
+  (`itens_b3`) a partir de [`src/data/ativos_b3.json`](src/data/ativos_b3.json), sem
+  acessar a internet.
+
+### Atualizando a lista de ações da B3
+
+O arquivo `src/data/ativos_b3.json` é gerado a partir da API pública da
+[brapi.dev](https://brapi.dev). Para atualizá-lo (raramente necessário):
+
+```sh
+docker compose exec app python -m src.scripts.AtualizarCatalogoB3
+docker compose exec app python -m src.scripts.SeedItensB3   # grava as novas no banco
+```
+
+Se a brapi falhar, o arquivo atual não é alterado.
 
 Os dados ficam no volume Docker `invest-ia_postgres_data` e sobrevivem a
 `docker compose down`/`up`.
@@ -154,13 +174,17 @@ Saída esperada:
 [PASSOU] Integração com o yfinance
 [PASSOU] Integração com a API da Claude
 [PASSOU] Integração com a API do Gemini
+[PASSOU] Integração com o OpenRouter
+[PASSOU] Catálogo de ativos da B3
+[PASSOU] Análise de vários ativos
+[PASSOU] Tema, paleta e formatação
 [PASSOU] Interface Streamlit de ponta a ponta
 
-5/5 baterias passaram
+9/9 baterias passaram
 ```
 
 Os testes **não acessam a internet nem gastam créditos da IA**: usam um banco SQLite
-temporário e simulam o Yahoo Finance, o Gemini e o Claude. Também não tocam no banco
+temporário e simulam o Yahoo Finance, o OpenRouter, o Gemini, o Claude e a brapi. Também não tocam no banco
 PostgreSQL do sistema.
 
 Para rodar uma bateria isolada:
@@ -171,8 +195,12 @@ docker compose exec app python tests/teste_logica.py
 
 | Bateria | O que cobre |
 | ------- | ----------- |
-| `teste_logica.py` | cadastro, login, carteira, compra/venda, cache da IA, backtest, horário de Brasília |
-| `teste_yfinance.py` | biblioteca yfinance real com respostas HTTP simuladas (sucesso, 429, rede fora, ticker inexistente) |
+| `teste_logica.py` | cadastro, login, carteira (variação do dia), compra/venda, cache da IA, backtest, horário de Brasília |
+| `teste_yfinance.py` | yfinance com respostas simuladas: histórico, 429, rede fora, ticker inexistente e cotações em lote com cache |
+| `teste_openrouter.py` | OpenRouter com transporte HTTP simulado (modelo `:free`, 401, 402, 404, 429, 5xx, timeout) |
+| `teste_catalogo.py` | catálogo da B3: JSON versionado, seed offline, script da brapi |
+| `teste_analise_multipla.py` | análise de até 5 ativos, falha isolada, 2 em paralelo, cache |
+| `teste_estilo.py` | dependências, tema, paleta, formatação pt-BR, gráficos |
 | `teste_claude.py` | SDK da Anthropic contra um servidor local (401, 403, 404, 429, 500, timeout, formato) |
 | `teste_gemini.py` | SDK do Gemini com cliente simulado (resposta, formato inválido, bloqueio, erros da API) |
 | `teste_interface.py` | o app Streamlit inteiro (AppTest), do cadastro ao backtesting |
@@ -208,6 +236,8 @@ ao recarregar a página do Streamlit.
 | Sintoma | Causa e solução |
 | ------- | --------------- |
 | `port is already allocated` ao subir | outra aplicação usa a 8501 ou a 5051. Pare-a ou troque a porta da esquerda em `docker-compose.yml` (ex.: `"8502:8501"`). |
+| "Limite de uso do modelo gratuito atingido no OpenRouter" | limite do plano gratuito (por minuto e por dia). Aguarde ou analise menos ativos de uma vez. |
+| "Apenas modelos gratuitos do OpenRouter são permitidos" | `OPENROUTER_MODEL` precisa terminar em `:free`. |
 | "O projeto desta chave do Gemini não tem acesso ao plano gratuito" | o projeto Google da chave exige faturamento. Ative em https://aistudio.google.com/billing ou gere a chave em outro projeto. |
 | "O modelo '...' não foi encontrado" | defina um modelo disponível em `GEMINI_MODEL` no `.env` e rode `docker compose restart app`. |
 | "Limite de uso do Gemini atingido" | limite do plano gratuito; aguarde cerca de um minuto. |
@@ -219,8 +249,10 @@ ao recarregar a página do Streamlit.
 
 | Variável | Padrão | Uso |
 | -------- | ------ | --- |
-| `IA_PROVEDOR` | `gemini` | `gemini` ou `claude` |
-| `GEMINI_API_KEY` | — | chave do Google AI Studio |
+| `IA_PROVEDOR` | `openrouter` | `openrouter`, `gemini` ou `claude` |
+| `OPENROUTER_API_KEY` | — | chave do OpenRouter |
+| `OPENROUTER_MODEL` | `nvidia/nemotron-3.5-super-vl:free` | modelo gratuito (precisa terminar em `:free`) |
+| `GEMINI_API_KEY` | — | só com `IA_PROVEDOR=gemini` |
 | `GEMINI_MODEL` | `gemini-3.8-flash` | modelo do Gemini |
 | `ANTHROPIC_API_KEY` | — | só com `IA_PROVEDOR=claude` |
 | `CLAUDE_MODEL` | `claude-sonnet-5-5` | modelo do Claude |
@@ -234,11 +266,14 @@ src/
   models/
     base.py      conexão, sessão, horário de Brasília e criarTabelas()
     entities/    tabelas SQLAlchemy + dados temporários do yfinance
-    services/    regra de negócio: Yahoo, indicadores, IA (Gemini/Claude), carteira, backtest
+    services/    regra de negócio: Yahoo, indicadores, IA (OpenRouter/Gemini/Claude), carteira, backtest
+  data/          ativos_b3.json (lista de ações da B3)
   public/
-    Main.py      ponto de entrada do Streamlit
-    views/       telas: Login, Carteira, Análise, Backtesting, gráficos
-  scripts/       Diagnostico e SeedItensB3
+    Main.py      ponto de entrada do Streamlit (login + navegação)
+    paginas/     páginas do menu: carteira, analise, backtesting
+    views/       telas, Estilo (paleta/CSS), Seletores (autocomplete), gráficos
+  scripts/       Diagnostico, SeedItensB3 e AtualizarCatalogoB3
+.streamlit/      tema (config.toml)
 tests/           baterias automatizadas
 docker/          configuração do pgAdmin
 .agents/docs/    documentação técnica e especificações (SDD)

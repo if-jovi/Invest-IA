@@ -51,7 +51,22 @@ YfinanceService.buscarHistorico = buscarHistorico
 YfinanceService.buscarInfo = lambda self, item: StockEntity(
     item=self.normalizarItem(item), nome=f"Empresa {self.normalizarItem(item)} S.A.", setor="Energia",
     segmento="Petroleo", descricao="Oil and gas company.")
-YfinanceService.buscarPrecoAtual = lambda self, item: 40.0
+from datetime import datetime as _dt
+COTACOES_FAKE = {}
+chamadasCotacoes = []
+def buscarCotacoes(self, itens, forcar=False):
+    chamadasCotacoes.append(list(itens))
+    resultado = {}
+    for item in itens:
+        preco, anterior = COTACOES_FAKE.get(item, (40.0, 38.0))
+        resultado[item] = None if preco is None else {
+            "preco": preco, "fechamentoAnterior": anterior,
+            "variacaoDia": (preco / anterior - 1) * 100 if anterior else None,
+            "atualizadoEm": _dt(2026, 11, 4, 14, 5), "desatualizada": item == "ITUB4"}
+    return resultado
+YfinanceService.buscarCotacoes = buscarCotacoes
+YfinanceService.buscarPrecoAtual = lambda self, item: (_ for _ in ()).throw(
+    AssertionError("CarteiraService deve usar buscarCotacoes (lote), nao buscarPrecoAtual"))
 
 TEXTO = """RECOMENDAÇÃO: COMPRA
 
@@ -124,7 +139,8 @@ passo("senha armazenada como hash")
 cid = u["carteiraId"]
 r = CarteiraController().obterResumo(cid)
 assert r["itens"] == [] and r["valorInvestido"] == 0 and r["valorAtual"] is None
-passo("carteira vazia")
+assert r["variacaoDia"] is None and chamadasCotacoes == []
+passo("carteira vazia (sem consulta ao Yahoo)")
 
 itens = ItensCarteiraController()
 espera_erro(lambda: itens.adicionarCompra(cid, "XYZ", 10, 10), "Código inválido")
@@ -247,12 +263,31 @@ passo("historico curto gera mensagem clara em vez de erro interno")
 
 for cod in ("VALE3", "ITUB4", "BBDC4", "WEGE3"):
     itens.adicionarCompra(cid, cod, 10, 20.0)
-import time as _t
-YfinanceService.buscarPrecoAtual = lambda self, item: (_t.sleep(0.5), 40.0)[1]
-t0 = _t.time()
+COTACOES_FAKE.update({"VALE3": (50.0, 40.0), "BBDC4": (40.0, None), "WEGE3": (None, None)})
+chamadasCotacoes.clear()
 resumo = CarteiraController().obterResumo(cid)
-dur = _t.time() - t0
-assert len(resumo["itens"]) == 6 and dur < 1.6, dur
-passo(f"cotacoes em paralelo: 6 ativos x 0,5s de latencia carregaram em {dur:.1f}s (sequencial seria 3,0s)")
+assert len(chamadasCotacoes) == 1 and sorted(chamadasCotacoes[0]) == sorted(
+    ["PETR4", "B3SA3", "VALE3", "ITUB4", "BBDC4", "WEGE3"]), chamadasCotacoes
+porItem = {i["item"]: i for i in resumo["itens"]}
+assert abs(porItem["PETR4"]["variacaoDia"] - (40 / 38 - 1) * 100) < 1e-6
+assert abs(porItem["VALE3"]["variacaoDia"] - 25.0) < 1e-6
+assert porItem["BBDC4"]["variacaoDia"] is None and porItem["WEGE3"]["variacaoDia"] is None
+assert porItem["WEGE3"]["cotacao"] is None and porItem["VALE3"]["cotacao"] == 50.0
+assert abs(resumo["variacaoDia"] - 340 / 4960 * 100) < 1e-6, resumo["variacaoDia"]
+assert resumo["semCotacao"] == 1 and resumo["cotacoesDesatualizadas"] == 1
+assert resumo["atualizadoEm"] == _dt(2026, 11, 4, 14, 5)
+passo("CT7 carteira: uma consulta em lote, variacao do dia por ativo e da carteira (ponderada)")
+investido = 100 * 30 + 10 * 12 + 4 * 10 * 20
+assert abs(resumo["valorInvestido"] - investido) < 1e-6
+cotados = [i for i in resumo["itens"] if i["cotacao"] is not None]
+assert abs(resumo["valorAtual"] - sum(i["cotacao"] * i["quantidade"] for i in cotados)) < 1e-6
+assert abs(resumo["resultado"] - (resumo["valorAtual"] - sum(i["quantidade"] * i["precoMedio"] for i in cotados))) < 1e-6
+passo("CT10 valor investido, valor atual, resultado e semCotacao seguem as regras atuais")
+
+COTACOES_FAKE.update({k: (None, None) for k in porItem})
+resumo = CarteiraController().obterResumo(cid)
+assert resumo["variacaoDia"] is None and resumo["valorAtual"] is None and resumo["semCotacao"] == 6
+COTACOES_FAKE.clear()
+passo("CT7 sem nenhuma cotacao: variacao do dia da carteira e None")
 
 print(f"\n{len(ok)} grupos de teste passaram")

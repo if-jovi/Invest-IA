@@ -1,0 +1,31 @@
+# Tema do InvestIA — paleta definida em .agents/docs/specs/interface.md
+# (as mesmas cores estão em src/public/views/Estilo.py)
+
+[client]
+toolbarMode = "minimal"
+showErrorDetails = "none"
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "light"
+primaryColor = "#FF5825"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#FFE6DD"
+textColor = "#2B2B2B"
+linkColor = "#651424"
+borderColor = "#ECE4E6"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap, sans-serif"
+headingFontWeights = [800, 700, 700, 600, 600, 600]
+baseRadius = "0.75rem"
+buttonRadius = "0.6rem"
+showWidgetBorder = true
+dataframeHeaderBackgroundColor = "#FFE6DD"
+
+[theme.sidebar]
+backgroundColor = "#651424"
+secondaryBackgroundColor = "#4A0E1A"
+textColor = "#FFFFFF"
+primaryColor = "#FF5825"
+borderColor = "#4A0E1A"

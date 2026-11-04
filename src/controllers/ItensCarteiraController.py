@@ -16,6 +16,8 @@ class ItensCarteiraController:
     def adicionarCompra(
         self, carteiraId: int, item: str, quantidade: float, precoUnitario: float
     ) -> dict:
+        if not (item or "").strip():
+            raise ValueError("Informe o código do ativo.")
         self.exigirPositivo(quantidade, "A quantidade")
         self.exigirPositivo(precoUnitario, "O preço")
         return self.itensCarteiraService.adicionarCompra(carteiraId, item, quantidade, precoUnitario)

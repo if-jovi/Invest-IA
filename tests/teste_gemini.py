@@ -4,6 +4,8 @@ from pathlib import Path
 from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import dotenv
+dotenv.load_dotenv = lambda *a, **k: False
 os.environ["GEMINI_API_KEY"] = "chave-de-teste"
 os.environ.pop("GEMINI_MODEL", None)
 
@@ -75,9 +77,9 @@ ind = IndicatorsEntity(item="PETR4", data_referencia="2026-10-02", preco_atual=3
                        macd=0.12, macd_signal=0.10, macd_cruzamento="baixa", sma_short=37.0, sma_long=35.5, tendencia_sma="alta")
 svc = modulo.GeminiService()
 
-os.environ.pop("IA_PROVEDOR", None)
+os.environ["IA_PROVEDOR"] = "gemini"
 assert isinstance(criarServicoIa(), modulo.GeminiService)
-print("OK  IA_PROVEDOR ausente -> Gemini é o provedor padrão")
+print("OK  IA_PROVEDOR=gemini -> GeminiService (o padrão agora é o OpenRouter)")
 
 comportamento["resposta"] = resposta(TEXTO)
 rec = svc.gerarRecomendacao(stock, ind)
