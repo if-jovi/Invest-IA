@@ -16,16 +16,22 @@ consumo por agentes/assistentes IA.
 - [`guides/`](./guides/) — guias operacionais
   ([`getting-started.md`](./guides/getting-started.md)).
 - [`specs/`](./specs/) — especificações funcionais por domínio:
-  - [`catalogo-ativos.md`](./specs/catalogo-ativos.md) — catálogo de ativos da
-    B3 (seed) e sugestão de ativos nas telas de Análise e Backtesting.
-  - [`interface.md`](./specs/interface.md) — tema, navegação, formatação pt-BR
-    e telas; atualização do Streamlit.
+  - [`catalogo-ativos.md`](./specs/catalogo-ativos.md) — catálogo completo de
+    ações da B3 (JSON da brapi, seed offline) e autocomplete dos campos de ativo.
+  - [`interface.md`](./specs/interface.md) — paleta, login, dashboard,
+    navegação, formatação pt-BR; atualização do Streamlit.
+  - [`carteira.md`](./specs/carteira.md) — cotação atualizada (yfinance em
+    lote, cache curto, atualização automática) e variação do dia.
+  - [`analise-multipla.md`](./specs/analise-multipla.md) — análise de até 5
+    ativos de uma vez, com quadro comparativo.
+  - [`provedor-openrouter.md`](./specs/provedor-openrouter.md) — OpenRouter
+    com modelos NVIDIA gratuitos como provedor padrão de IA.
   - [`analise-ia.md`](./specs/analise-ia.md) — contrato JSON da resposta da IA.
   - [`backtesting.md`](./specs/backtesting.md) — métricas (índice de Sharpe).
   - [`persistencia.md`](./specs/persistencia.md) — migrações Alembic e consultas.
 
-TODO: specs completas de autenticação e carteira (hoje só cobertas
-indiretamente por `interface.md`).
+TODO: spec completa de autenticação (hoje coberta indiretamente por
+`interface.md`).
 
 ## Como contribuir
 

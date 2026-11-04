@@ -13,7 +13,7 @@ Subir o InvestIA localmente com Docker e rodar os testes.
 
 ## Subir o sistema
 
-1. Copie `.env.example` para `.env` e preencha `GEMINI_API_KEY`.
+1. Copie `.env.example` para `.env` e preencha `OPENROUTER_API_KEY`.
 2. `docker compose up --build`
 3. App: http://localhost:8501 · pgAdmin: http://localhost:5051
    (admin@admin.com / admin)
@@ -32,7 +32,17 @@ docker compose exec app python -m tests.executar_todos
 ```
 
 Cada bateria é um script com `assert`s rodado em subprocesso; banco SQLite
-temporário, Yahoo e IA simulados (sem internet nem créditos).
+temporário, Yahoo, IA e brapi simulados (sem internet nem créditos).
+
+Sem o container do app, os testes rodam em qualquer `python:3.11` com o
+projeto montado e `pip install -r requirements.txt`.
+
+## Atualizar a lista de ações
+
+```sh
+docker compose exec app python -m src.scripts.AtualizarCatalogoB3
+docker compose exec app python -m src.scripts.SeedItensB3
+```
 
 ---
 

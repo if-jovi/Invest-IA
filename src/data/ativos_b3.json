@@ -1,0 +1,1887 @@
+[
+ {
+  "item": "AALR3",
+  "nome": "ALLIANÇA SAÚDE E PARTICIPAÇÕES S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "ABCB4",
+  "nome": "BCO ABC BRASIL S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "ABEV3",
+  "nome": "AMBEV S.A.",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "AERI3",
+  "nome": "AERIS IND. E COM. DE EQUIP. GERACAO DE ENERGIA S/A",
+  "setor": "Industrial"
+ },
+ {
+  "item": "AFLT3",
+  "nome": "AFLUENTE TRANSMISSÃO DE ENERGIA ELÉTRICA S/A",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "AGRO3",
+  "nome": "BRASILAGRO - CIA BRAS DE PROP AGRICOLAS",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "AGXY3",
+  "nome": "AGROGALAXY PARTICIPAÇÕES S.A.",
+  "setor": "Distribuição"
+ },
+ {
+  "item": "ALLD3",
+  "nome": "ALLIED TECNOLOGIA S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "ALOS3",
+  "nome": "ALLOS S.A",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "ALPA3",
+  "nome": "ALPARGATAS S.A.",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "ALPA4",
+  "nome": "ALPARGATAS S.A.",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "ALPK3",
+  "nome": "ALLPARK EMPREENDIMENTOS PARTICIPACOES SERVICOS S.A",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "ALUP11",
+  "nome": "ALUPAR INVESTIMENTO S/A",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "ALUP3",
+  "nome": "ALUPAR INVESTIMENTO S/A",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "ALUP4",
+  "nome": "ALUPAR INVESTIMENTO S/A",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "AMAR3",
+  "nome": "MARISA LOJAS S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "AMBP3",
+  "nome": "AMBIPAR PARTICIPACOES E EMPREENDIMENTOS S/A",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "AMER3",
+  "nome": "AMERICANAS S.A",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "AMOB3",
+  "nome": "AUTOMOB PARTICIPAÇÕES S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "ANIM3",
+  "nome": "ANIMA HOLDING S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "ARML3",
+  "nome": "ARMAC LOCAÇÃO. LOGÍSTICA E SERVIÇOS S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "ARND3",
+  "nome": "ARANDU INVESTIMENTOS S.A.",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "ASAI3",
+  "nome": "SENDAS DISTRIBUIDORA S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "ATED3",
+  "nome": "ATOM EDUCAÇÃO E EDITORA S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "AUAU3",
+  "nome": "UNIÃO PET PARTICIPAÇÕES S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "AURE3",
+  "nome": "AUREN ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "AVLL3",
+  "nome": "ALPHAVILLE S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "AXIA3",
+  "nome": "AXIA ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "AXIA7",
+  "nome": "AXIA ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "AZEV3",
+  "nome": "AZEVEDO E TRAVASSOS S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "AZEV4",
+  "nome": "AZEVEDO E TRAVASSOS S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "AZTE3",
+  "nome": "AZEVEDO & TRAVASSOS ENERGIA S.A.",
+  "setor": "Energia"
+ },
+ {
+  "item": "AZUL3",
+  "nome": "AZUL S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "AZUL97",
+  "nome": "AZUL S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "AZUL98",
+  "nome": "AZUL S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "AZUL99",
+  "nome": "AZUL S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "AZZA3",
+  "nome": "AZZAS 2154 S.A.",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "B3SA3",
+  "nome": "B3 S.A. - BRASIL. BOLSA. BALCÃO",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BALM3",
+  "nome": "BAUMER S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "BALM4",
+  "nome": "BAUMER S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "BAZA3",
+  "nome": "BCO AMAZONIA S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BBAS3",
+  "nome": "BCO BRASIL S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BBDC3",
+  "nome": "BCO BRADESCO S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BBDC4",
+  "nome": "BCO BRADESCO S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BBSE3",
+  "nome": "BB SEGURIDADE PARTICIPAÇÕES S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BDLL3",
+  "nome": "BARDELLA S.A. INDUSTRIAS MECANICAS",
+  "setor": "Industrial"
+ },
+ {
+  "item": "BDLL4",
+  "nome": "BARDELLA S.A. INDUSTRIAS MECANICAS",
+  "setor": "Industrial"
+ },
+ {
+  "item": "BEEF3",
+  "nome": "MINERVA S.A.",
+  "setor": "Distribuição"
+ },
+ {
+  "item": "BEES3",
+  "nome": "BANESTES S.A. - BCO EST ESPIRITO SANTO",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BEES4",
+  "nome": "BANESTES S.A. - BCO EST ESPIRITO SANTO",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BGIP3",
+  "nome": "BCO ESTADO DE SERGIPE S.A. - BANESE",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BGIP4",
+  "nome": "BCO ESTADO DE SERGIPE S.A. - BANESE",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BHIA3",
+  "nome": "GRUPO CASAS BAHIA S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "BIED3",
+  "nome": "BIOMA EDUCAÇÃO S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "BIOM3",
+  "nome": "BIOMM S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "BLAU3",
+  "nome": "BLAU FARMACÊUTICA S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "BMEB3",
+  "nome": "BCO MERCANTIL DO BRASIL S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BMEB4",
+  "nome": "BCO MERCANTIL DO BRASIL S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BMGB4",
+  "nome": "BANCO BMG S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BMIN4",
+  "nome": "BCO MERCANTIL DE INVESTIMENTOS S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BMKS3",
+  "nome": "BICICLETAS MONARK S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "BMOB3",
+  "nome": "BEMOBI MOBILE TECH S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "BNBR3",
+  "nome": "BCO NORDESTE DO BRASIL S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BOBR4",
+  "nome": "BOMBRIL S.A.",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "BPAC11",
+  "nome": "BCO BTG PACTUAL S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BPAC3",
+  "nome": "BCO BTG PACTUAL S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BPAC5",
+  "nome": "BCO BTG PACTUAL S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BRAP3",
+  "nome": "BRADESPAR S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BRAP4",
+  "nome": "BRADESPAR S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BRAV3",
+  "nome": "BRAVA ENERGIA S.A.",
+  "setor": "Energia"
+ },
+ {
+  "item": "BRBI11",
+  "nome": "BRBI BR PARTNERS S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BRKM3",
+  "nome": "BRASKEM S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "BRKM5",
+  "nome": "BRASKEM S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "BRKM6",
+  "nome": "BRASKEM S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "BRSR3",
+  "nome": "BCO ESTADO DO RIO GRANDE DO SUL S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BRSR5",
+  "nome": "BCO ESTADO DO RIO GRANDE DO SUL S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BRSR6",
+  "nome": "BCO ESTADO DO RIO GRANDE DO SUL S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BRST3",
+  "nome": "BRISANET SERVIÇOS DE TELECOMUNICAÇÕES S.A.",
+  "setor": "Comunicação"
+ },
+ {
+  "item": "BSLI3",
+  "nome": "BRB BCO DE BRASILIA S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "BSLI4",
+  "nome": "BRB BCO DE BRASILIA S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "CALI3",
+  "nome": "CONSTRUTORA ADOLPHO LINDENBERG S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "CAMB3",
+  "nome": "CAMBUCI S.A.",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "CAML3",
+  "nome": "CAMIL ALIMENTOS S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "CASH3",
+  "nome": "MÉLIUZ S.A.",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "CASN3",
+  "nome": "CIA CATARINENSE DE AGUAS E SANEAM.-CASAN",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CASN4",
+  "nome": "CIA CATARINENSE DE AGUAS E SANEAM.-CASAN",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CBAV3",
+  "nome": "COMPANHIA BRASILEIRA DE ALUMÍNIO",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "CBEE3",
+  "nome": "AMPLA ENERGIA E SERVICOS S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CCTY3",
+  "nome": "BELORA RDVC CITY DESENVOLVIMENTO  IMOBILIÁRIO S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "CEAB3",
+  "nome": "CEA MODAS S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "CEBR3",
+  "nome": "CIA ENERGETICA DE BRASILIA",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CEBR5",
+  "nome": "CIA ENERGETICA DE BRASILIA",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CEBR6",
+  "nome": "CIA ENERGETICA DE BRASILIA",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CEDO4",
+  "nome": "CIA FIACAO TECIDOS CEDRO CACHOEIRA",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "CEEB3",
+  "nome": "CIA ELETRICIDADE EST. DA BAHIA - COELBA",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CEEB5",
+  "nome": "CIA ELETRICIDADE EST. DA BAHIA - COELBA",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CEED3",
+  "nome": "CIA ESTADUAL DE DISTRIB ENER ELET-CEEE-D",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CGAS3",
+  "nome": "CIA GAS DE SAO PAULO - COMGAS",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CGAS5",
+  "nome": "CIA GAS DE SAO PAULO - COMGAS",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CGRA3",
+  "nome": "GRAZZIOTIN S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "CGRA4",
+  "nome": "GRAZZIOTIN S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "CLSC3",
+  "nome": "CENTRAIS ELET DE SANTA CATARINA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CLSC4",
+  "nome": "CENTRAIS ELET DE SANTA CATARINA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CMIG3",
+  "nome": "CIA ENERGETICA DE MINAS GERAIS - CEMIG",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CMIG4",
+  "nome": "CIA ENERGETICA DE MINAS GERAIS - CEMIG",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CMIN3",
+  "nome": "CSN MINERAÇÃO S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "COCE3",
+  "nome": "CIA ENERGETICA DO CEARA - COELCE",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "COCE5",
+  "nome": "CIA ENERGETICA DO CEARA - COELCE",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "COGN3",
+  "nome": "COGNA EDUCAÇÃO S.A.",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "CPFE3",
+  "nome": "CPFL ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CRPG5",
+  "nome": "TRONOX PIGMENTOS DO BRASIL S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "CRPG6",
+  "nome": "TRONOX PIGMENTOS DO BRASIL S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "CSAN3",
+  "nome": "COSAN S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CSED3",
+  "nome": "CRUZEIRO DO SUL EDUCACIONAL S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "CSMG3",
+  "nome": "CIA SANEAMENTO DE MINAS GERAIS-COPASA MG",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "CSNA3",
+  "nome": "CIA SIDERURGICA NACIONAL",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "CSUD3",
+  "nome": "CSU DIGITAL S.A.",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "CTAX3",
+  "nome": "CONTAX PARTICIPAÇÕES S.A",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "CTKA4",
+  "nome": "KARSTEN S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "CURY3",
+  "nome": "CURY CONSTRUTORA E INCORPORADORA S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "CVCB3",
+  "nome": "CVC BRASIL OPERADORA E AGÊNCIA DE VIAGENS S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "CXSE3",
+  "nome": "CAIXA SEGURIDADE PARTICIPAÇÕES S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "CYRE3",
+  "nome": "CYRELA BRAZIL REALTY S.A.EMPREEND E PART",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "CYRE4",
+  "nome": "CYRELA BRAZIL REALTY S.A.EMPREEND E PART",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "DASA3",
+  "nome": "DIAGNOSTICOS DA AMERICA S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "DESK3",
+  "nome": "DESKTOP S.A.",
+  "setor": "Comunicação"
+ },
+ {
+  "item": "DEXP3",
+  "nome": "DEXXOS PARTICIPACOES S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "DEXP4",
+  "nome": "DEXXOS PARTICIPACOES S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "DIRR3",
+  "nome": "DIRECIONAL ENGENHARIA S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "DMVF3",
+  "nome": "D1000 VAREJO FARMA PARTICIPAÇÕES S.A.",
+  "setor": "Distribuição"
+ },
+ {
+  "item": "DOHL3",
+  "nome": "DOHLER S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "DOHL4",
+  "nome": "DOHLER S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "DOTZ3",
+  "nome": "DOTZ S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "DTCY3",
+  "nome": "DTCOM - DIRECT TO COMPANY S.A.",
+  "setor": "Comunicação"
+ },
+ {
+  "item": "DXCO3",
+  "nome": "DEXCO S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "EALT3",
+  "nome": "ELECTRO ACO ALTONA S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "EALT4",
+  "nome": "ELECTRO ACO ALTONA S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "ECOM3",
+  "nome": "ECONOMATICA S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "ECOR3",
+  "nome": "ECORODOVIAS INFRAESTRUTURA E LOGÍSTICA S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "EGIE3",
+  "nome": "ENGIE BRASIL ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "EKTR4",
+  "nome": "ELEKTRO REDES S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "EMBJ3",
+  "nome": "EMBRAER S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "ENEV3",
+  "nome": "ENEVA S.A",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "ENGI11",
+  "nome": "ENERGISA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "ENGI3",
+  "nome": "ENERGISA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "ENGI4",
+  "nome": "ENERGISA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "ENJU3",
+  "nome": "ENJOEI S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "ENMT3",
+  "nome": "ENERGISA MATO GROSSO-DISTRIBUIDORA DE ENERGIA S/A",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "ENMT4",
+  "nome": "ENERGISA MATO GROSSO-DISTRIBUIDORA DE ENERGIA S/A",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "EPAR3",
+  "nome": "EMBPAR PARTICIPACOES S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "EQPA3",
+  "nome": "EQUATORIAL PARA DISTRIBUIDORA DE ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "EQPA5",
+  "nome": "EQUATORIAL PARA DISTRIBUIDORA DE ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "EQPA6",
+  "nome": "EQUATORIAL PARA DISTRIBUIDORA DE ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "EQTL3",
+  "nome": "EQUATORIAL S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "ESPA3",
+  "nome": "MPM CORPÓREOS S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "ESTR4",
+  "nome": "MANUFATURA DE BRINQUEDOS ESTRELA S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "ETER3",
+  "nome": "ETERNIT S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "EUCA3",
+  "nome": "EUCATEX S.A. INDUSTRIA E COMERCIO",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "EUCA4",
+  "nome": "EUCATEX S.A. INDUSTRIA E COMERCIO",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "EVEN3",
+  "nome": "EVEN CONSTRUTORA E INCORPORADORA S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "EZTC3",
+  "nome": "EZ TEC EMPREEND. E PARTICIPACOES S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "FASA3",
+  "nome": "FASA S.A.",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "FESA3",
+  "nome": "CIA FERRO LIGAS DA BAHIA - FERBASA",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "FESA4",
+  "nome": "CIA FERRO LIGAS DA BAHIA - FERBASA",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "FHER3",
+  "nome": "FERTILIZANTES HERINGER S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "FIEI3",
+  "nome": "FICA EMPREENDIMENTOS IMOBILIÁRIOS S.A",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "FIQE3",
+  "nome": "UNIFIQUE TELECOMUNICAÇÕES S.A.",
+  "setor": "Comunicação"
+ },
+ {
+  "item": "FLRY3",
+  "nome": "FLEURY S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "FRAS3",
+  "nome": "FRASLE MOBILITY S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "GEPA3",
+  "nome": "RIO PARANAPANEMA ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "GEPA4",
+  "nome": "RIO PARANAPANEMA ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "GFSA3",
+  "nome": "GAFISA S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "GGBR3",
+  "nome": "GERDAU S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "GGBR4",
+  "nome": "GERDAU S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "GGPS3",
+  "nome": "GPS PARTICIPACOES E EMPREENDIMENTOS S.A.",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "GMAT3",
+  "nome": "GRUPO MATEUS S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "GOAU3",
+  "nome": "METALURGICA GERDAU S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "GOAU4",
+  "nome": "METALURGICA GERDAU S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "GRND3",
+  "nome": "GRENDENE S.A.",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "GSHP3",
+  "nome": "GENERAL SHOPPING E OUTLETS DO BRASIL S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "HAGA3",
+  "nome": "HAGA S.A. INDUSTRIA E COMERCIO",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "HAGA4",
+  "nome": "HAGA S.A. INDUSTRIA E COMERCIO",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "HAPV3",
+  "nome": "HAPVIDA PARTICIPACOES E INVESTIMENTOS SA",
+  "setor": "Saúde"
+ },
+ {
+  "item": "HBOR3",
+  "nome": "HELBOR EMPREENDIMENTOS S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "HBRE3",
+  "nome": "HBR REALTY EMPREENDIMENTOS IMOBILIARIOS S/A",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "HBSA3",
+  "nome": "HIDROVIAS DO BRASIL S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "HBTS5",
+  "nome": "CIA HABITASUL DE PARTICIPACOES",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "HETA4",
+  "nome": "HERCULES S.A. FABRICA DE TALHERES",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "HOOT4",
+  "nome": "HOTEIS OTHON S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "HYPE3",
+  "nome": "HYPERA S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "IFCM3",
+  "nome": "INFRACOMMERCE CXAAS S.A.",
+  "setor": "Distribuição"
+ },
+ {
+  "item": "IGTI11",
+  "nome": "IGUATEMI S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "IGTI3",
+  "nome": "IGUATEMI S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "IGTI4",
+  "nome": "IGUATEMI S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "INEP3",
+  "nome": "INEPAR S.A. INDUSTRIA E CONSTRUCOES",
+  "setor": "Industrial"
+ },
+ {
+  "item": "INEP4",
+  "nome": "INEPAR S.A. INDUSTRIA E CONSTRUCOES",
+  "setor": "Industrial"
+ },
+ {
+  "item": "INTB3",
+  "nome": "INTELBRAS S.A. IND DE TELEC ELETRONICA BRASILEIRA",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "IRBR3",
+  "nome": "IRB - BRASIL RESSEGUROS S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "ISAE3",
+  "nome": "ISA ENERGIA BRASIL S.A",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "ISAE4",
+  "nome": "ISA ENERGIA BRASIL S.A",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "ITSA3",
+  "nome": "ITAUSA S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "ITSA4",
+  "nome": "ITAUSA S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "ITUB3",
+  "nome": "ITAU UNIBANCO HOLDING S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "ITUB4",
+  "nome": "ITAU UNIBANCO HOLDING S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "JALL3",
+  "nome": "JALLES MACHADO S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "JFEN3",
+  "nome": "JOAO FORTES ENGENHARIA S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "JHSF3",
+  "nome": "JHSF PARTICIPACOES S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "JOPA4",
+  "nome": "JOSAPAR-JOAQUIM OLIVEIRA S.A. - PARTICIP",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "JSLG3",
+  "nome": "JSL S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "KEPL3",
+  "nome": "KEPLER WEBER S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "KLBN11",
+  "nome": "KLABIN S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "KLBN3",
+  "nome": "KLABIN S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "KLBN4",
+  "nome": "KLABIN S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "LAND3",
+  "nome": "TERRA SANTA PROPRIEDADES AGRICOLAS S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "LAVV3",
+  "nome": "LAVVI EMPREENDIMENTOS IMOBILIÁRIOS S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "LEVE3",
+  "nome": "MAHLE-METAL LEVE S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "LIGT3",
+  "nome": "LIGHT S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "LJQQ3",
+  "nome": "LOJAS QUERO-QUERO S/A",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "LOGG3",
+  "nome": "LOG COMMERCIAL PROPERTIES",
+  "setor": "Industrial"
+ },
+ {
+  "item": "LOGN3",
+  "nome": "LOG-IN LOGISTICA INTERMODAL S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "LPSB3",
+  "nome": "LPS BRASIL - CONSULTORIA DE IMOVEIS S.A.",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "LREN3",
+  "nome": "LOJAS RENNER S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "LUPA3",
+  "nome": "LUPATECH S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "LUXM4",
+  "nome": "TREVISA INVESTIMENTOS S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "LWSA3",
+  "nome": "LWSA S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "MAPT3",
+  "nome": "CEMEPE INVESTIMENTOS S.A.",
+  "setor": "Outros"
+ },
+ {
+  "item": "MAPT4",
+  "nome": "CEMEPE INVESTIMENTOS S.A.",
+  "setor": "Outros"
+ },
+ {
+  "item": "MATD3",
+  "nome": "HOSPITAL MATER DEI S/A",
+  "setor": "Saúde"
+ },
+ {
+  "item": "MBRF3",
+  "nome": "MARFRIG GLOBAL FOODS S.A.",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "MDIA3",
+  "nome": "M.DIAS BRANCO S.A. IND COM DE ALIMENTOS",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "MDNE3",
+  "nome": "MOURA DUBEUX ENGENHARIA S/A",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "MEAL3",
+  "nome": "INTERNATIONAL MEAL COMPANY ALIMENTACAO S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "MELK3",
+  "nome": "MELNICK DESENVOLVIMENTO IMOBILIÁRIO S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "MGEL4",
+  "nome": "MANGELS INDUSTRIAL S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "MGLU3",
+  "nome": "MAGAZINE LUIZA S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "MILS3",
+  "nome": "MILLS LOCAÇÃO. SERVIÇOS E LOGÍSTICA S.A",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "MLAS3",
+  "nome": "GRUPO MULTI S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "MNDL3",
+  "nome": "MUNDIAL S.A. - PRODUTOS DE CONSUMO",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "MNPR3",
+  "nome": "MINUPAR PARTICIPACOES S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "MOTV3",
+  "nome": "MOTIVA INFRAESTRUTURA DE MOBILIDADE S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "MOVI3",
+  "nome": "MOVIDA PARTICIPACOES SA",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "MRVE3",
+  "nome": "MRV ENGENHARIA E PARTICIPACOES S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "MSPA4",
+  "nome": "CIA MELHORAMENTOS DE SAO PAULO",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "MTRE3",
+  "nome": "MITRE REALTY EMPREENDIMENTOS E PARTICIPAÇÕES S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "MTSA4",
+  "nome": "METISA METALURGICA TIMBOENSE S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "MULT3",
+  "nome": "MULTIPLAN - EMPREEND IMOBILIARIOS S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "MWET4",
+  "nome": "WETZEL S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "MYPK3",
+  "nome": "IOCHPE MAXION S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "NATU3",
+  "nome": "NATURA COSMETICOS S.A.",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "NEXP3",
+  "nome": "NEXPE PARTICIPAÇÕES S.A",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "NORD3",
+  "nome": "NORDON INDUSTRIAS METALURGICAS S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "NUTR3",
+  "nome": "NUTRIPLANT INDUSTRIA E COMERCIO S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "OBTC3",
+  "nome": "ORANJEBTC S.A. - EDUCAÇÃO E INVESTIMENTO",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "OFSA3",
+  "nome": "OUROFINO S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "ONCO11",
+  "nome": "ONCOCLINICAS DO BRASIL SERVICOS MEDICOS  S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "ONCO3",
+  "nome": "ONCOCLINICAS DO BRASIL SERVICOS MEDICOS  S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "OPCT3",
+  "nome": "OCEANPACT SERVICOS MARITIMOS S.A.",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "ORVR3",
+  "nome": "ORIZON VALORIZACAO DE RESIDUOS S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "OSXB3",
+  "nome": "OSX BRASIL S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "PASS3",
+  "nome": "COMPASS GAS E ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "PATI3",
+  "nome": "PANATLANTICA S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "PCAR3",
+  "nome": "CIA BRASILEIRA DE DISTRIBUICAO",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "PDGR3",
+  "nome": "PDG REALTY S.A. EMPREEND E PARTICIPACOES",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "PDTC3",
+  "nome": "PADTEC HOLDING S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "PEAB3",
+  "nome": "CIA PARTICIPACOES ALIANCA DA BAHIA",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "PETR3",
+  "nome": "PETROLEO BRASILEIRO S.A. PETROBRAS",
+  "setor": "Energia"
+ },
+ {
+  "item": "PETR4",
+  "nome": "PETROLEO BRASILEIRO S.A. PETROBRAS",
+  "setor": "Energia"
+ },
+ {
+  "item": "PFRM3",
+  "nome": "PROFARMA DISTRIB PROD FARMACEUTICOS S.A.",
+  "setor": "Distribuição"
+ },
+ {
+  "item": "PGMN3",
+  "nome": "EMPREENDIMENTOS PAGUE MENOS S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "PINE3",
+  "nome": "BCO PINE S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "PINE4",
+  "nome": "BCO PINE S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "PLAS3",
+  "nome": "PLASCAR PARTICIPACOES INDUSTRIAIS S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "PLPL3",
+  "nome": "PLANO & PLANO DESENVOLVIMENTO IMOBILIÁRIO S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "PMAM3",
+  "nome": "PARANAPANEMA S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "PNVL3",
+  "nome": "DIMED S.A. DISTRIBUIDORA DE MEDICAMENTOS",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "POMO3",
+  "nome": "MARCOPOLO S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "POMO4",
+  "nome": "MARCOPOLO S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "POSI3",
+  "nome": "POSITIVO TECNOLOGIA S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "PRIO3",
+  "nome": "PRIO S.A.",
+  "setor": "Energia"
+ },
+ {
+  "item": "PRNR3",
+  "nome": "PRINER SERVIÇOS INDUSTRIAIS S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "PSSA3",
+  "nome": "PORTO SEGURO S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "PTBL3",
+  "nome": "PBG S/A",
+  "setor": "Industrial"
+ },
+ {
+  "item": "QUAL3",
+  "nome": "QUALICORP CONSULTORIA E CORRETORA DE SEGUROS S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "RADL3",
+  "nome": "RAIA DROGASIL S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "RAIL3",
+  "nome": "RUMO S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "RAIZ55",
+  "nome": "RAIZEN S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "RANI3",
+  "nome": "IRANI PAPEL E EMBALAGEM S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "RAPT3",
+  "nome": "RANDONCORP S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "RAPT4",
+  "nome": "RANDONCORP S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "RCSL3",
+  "nome": "RECRUSUL S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "RCSL4",
+  "nome": "RECRUSUL S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "RDOR3",
+  "nome": "REDE DOR SÃO LUIZ S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "RECV3",
+  "nome": "PETRORECÔNCAVO S.A.",
+  "setor": "Energia"
+ },
+ {
+  "item": "REDE3",
+  "nome": "REDE ENERGIA PARTICIPAÇÕES S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "RENT3",
+  "nome": "LOCALIZA RENT A CAR S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "RENT4",
+  "nome": "LOCALIZA RENT A CAR S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "RIAA3",
+  "nome": "GUARARAPES CONFECCOES S.A.",
+  "setor": "Distribuição"
+ },
+ {
+  "item": "RNEW3",
+  "nome": "RENOVA ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "RNEW4",
+  "nome": "RENOVA ENERGIA S.A.",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "ROMI3",
+  "nome": "ROMI S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "RPAD5",
+  "nome": "ALFA HOLDINGS S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "RPAD6",
+  "nome": "ALFA HOLDINGS S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "RSUL4",
+  "nome": "METALURGICA RIOSULENSE S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "RVEE3",
+  "nome": "REVEE S.A.",
+  "setor": "Outros"
+ },
+ {
+  "item": "SANB11",
+  "nome": "BCO SANTANDER (BRASIL) S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "SANB3",
+  "nome": "BCO SANTANDER (BRASIL) S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "SANB4",
+  "nome": "BCO SANTANDER (BRASIL) S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "SAPR11",
+  "nome": "CIA SANEAMENTO DO PARANA - SANEPAR",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "SAPR3",
+  "nome": "CIA SANEAMENTO DO PARANA - SANEPAR",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "SAPR4",
+  "nome": "CIA SANEAMENTO DO PARANA - SANEPAR",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "SAUD3",
+  "nome": "BRADSAUDE S.A.",
+  "setor": "Saúde"
+ },
+ {
+  "item": "SBFG3",
+  "nome": "GRUPO SBF SA",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "SBSP3",
+  "nome": "CIA SANEAMENTO BASICO EST SAO PAULO",
+  "setor": "Utilidade Pública"
+ },
+ {
+  "item": "SCAR3",
+  "nome": "SAO CARLOS EMPREEND E PARTICIPACOES S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "SEER3",
+  "nome": "SER EDUCACIONAL S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "SEQL3",
+  "nome": "SEQUOIA LOGISTICA E TRANSPORTES S.A",
+  "setor": "Industrial"
+ },
+ {
+  "item": "SHUL3",
+  "nome": "SCHULZ S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "SHUL4",
+  "nome": "SCHULZ S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "SIMH3",
+  "nome": "SIMPAR S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "SLCE3",
+  "nome": "SLC AGRICOLA S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "SMFT3",
+  "nome": "SMARTFIT ESCOLA DE GINÁSTICA E DANÇA S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "SMTO3",
+  "nome": "SAO MARTINHO S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "SNSY5",
+  "nome": "SANSUY S.A. INDUSTRIA DE PLASTICOS",
+  "setor": "Industrial"
+ },
+ {
+  "item": "SOJA3",
+  "nome": "BOA SAFRA SEMENTES S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "SOND5",
+  "nome": "SONDOTECNICA ENGENHARIA SOLOS S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "SOND6",
+  "nome": "SONDOTECNICA ENGENHARIA SOLOS S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "SUZB3",
+  "nome": "SUZANO S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "SYNE3",
+  "nome": "SYN PROP E TECH S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "TAEE11",
+  "nome": "TRANSMISSORA ALIANÇA DE ENERGIA ELÉTRICA S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "TAEE3",
+  "nome": "TRANSMISSORA ALIANÇA DE ENERGIA ELÉTRICA S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "TAEE4",
+  "nome": "TRANSMISSORA ALIANÇA DE ENERGIA ELÉTRICA S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "TASA3",
+  "nome": "TAURUS ARMAS S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "TASA4",
+  "nome": "TAURUS ARMAS S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "TCSA3",
+  "nome": "TECNISA S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "TECN3",
+  "nome": "TECHNOS S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "TELB3",
+  "nome": "TELEC BRASILEIRAS S.A. TELEBRAS",
+  "setor": "Comunicação"
+ },
+ {
+  "item": "TELB4",
+  "nome": "TELEC BRASILEIRAS S.A. TELEBRAS",
+  "setor": "Comunicação"
+ },
+ {
+  "item": "TEND3",
+  "nome": "CONSTRUTORA TENDA S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "TFCO4",
+  "nome": "TRACK & FIELD CO S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "TGMA3",
+  "nome": "TEGMA GESTAO LOGISTICA S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "TIMS3",
+  "nome": "TIM S.A.",
+  "setor": "Comunicação"
+ },
+ {
+  "item": "TOKY3",
+  "nome": "GRUPO TOKY S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "TOTS3",
+  "nome": "TOTVS S.A.",
+  "setor": "Tecnologia"
+ },
+ {
+  "item": "TPIS3",
+  "nome": "TPI - TRIUNFO PARTICIP. E INVEST. S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "TRIS3",
+  "nome": "TRISUL S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "TTEN3",
+  "nome": "TRÊS TENTOS AGROINDUSTRIAL S/A",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "TUPY3",
+  "nome": "TUPY S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "TXRX4",
+  "nome": "TEXTIL RENAUXVIEW S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "UCAS3",
+  "nome": "UNICASA INDÚSTRIA DE MÓVEIS S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "UGPA3",
+  "nome": "ULTRAPAR PARTICIPACOES S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "UNIP3",
+  "nome": "UNIPAR CARBOCLORO S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "UNIP5",
+  "nome": "UNIPAR CARBOCLORO S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "UNIP6",
+  "nome": "UNIPAR CARBOCLORO S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "USIM3",
+  "nome": "USINAS SID DE MINAS GERAIS S.A.-USIMINAS",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "USIM5",
+  "nome": "USINAS SID DE MINAS GERAIS S.A.-USIMINAS",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "USIM6",
+  "nome": "USINAS SID DE MINAS GERAIS S.A.-USIMINAS",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "VALE3",
+  "nome": "VALE S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "VAMO3",
+  "nome": "VAMOS LOCAÇÃO DE CAMINHÕES. MÁQUINAS E EQUIP. S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "VBBR3",
+  "nome": "VIBRA ENERGIA S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "VITT3",
+  "nome": "VITTIA S.A.",
+  "setor": "Materiais Básicos"
+ },
+ {
+  "item": "VIVA3",
+  "nome": "VIVARA PARTICIPAÇOES S.A",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "VIVR3",
+  "nome": "VIVER INCORPORADORA E CONSTRUTORA S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "VIVT3",
+  "nome": "TELEFÔNICA BRASIL S.A",
+  "setor": "Comunicação"
+ },
+ {
+  "item": "VLID3",
+  "nome": "VALID SOLUÇÕES S.A.",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "VSTE3",
+  "nome": "VESTE S.A. ESTILO",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "VTRU3",
+  "nome": "VITRU EDUCAÇÃO S.A",
+  "setor": "Serviços Comerciais"
+ },
+ {
+  "item": "VULC3",
+  "nome": "VULCABRAS S.A.",
+  "setor": "Consumo Não Cíclico"
+ },
+ {
+  "item": "VVEO3",
+  "nome": "CM HOSPITALAR S.A.",
+  "setor": "Distribuição"
+ },
+ {
+  "item": "WDCN3",
+  "nome": "LIVETECH DA BAHIA INDUSTRIA E COMERCIO S/A",
+  "setor": "Distribuição"
+ },
+ {
+  "item": "WEGE3",
+  "nome": "WEG S.A.",
+  "setor": "Industrial"
+ },
+ {
+  "item": "WEST3",
+  "nome": "WESTWING COMERCIO VAREJISTA S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "WHRL3",
+  "nome": "WHIRLPOOL S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "WHRL4",
+  "nome": "WHIRLPOOL S.A.",
+  "setor": "Consumo Cíclico"
+ },
+ {
+  "item": "WIZC3",
+  "nome": "WIZ CO PARTICIPAÇÕES E CORRETAGEM DE SEGUROS S.A.",
+  "setor": "Serviços Financeiros"
+ },
+ {
+  "item": "WLMM3",
+  "nome": "WLM PART. E COMÉRCIO DE MÁQUINAS E VEÍCULOS S.A.",
+  "setor": "Distribuição"
+ },
+ {
+  "item": "WLMM4",
+  "nome": "WLM PART. E COMÉRCIO DE MÁQUINAS E VEÍCULOS S.A.",
+  "setor": "Distribuição"
+ },
+ {
+  "item": "YDUQ3",
+  "nome": "YDUQS PARTICIPACOES S.A.",
+  "setor": "Serviços Comerciais"
+ }
+]

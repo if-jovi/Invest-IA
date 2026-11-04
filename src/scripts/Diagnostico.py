@@ -19,7 +19,7 @@ DICAS = {
         "(2) yfinance atualizado no requirements.txt (versões antigas levam erro 429); "
         "(3) rede, VPN ou firewall; (4) aguarde alguns minutos se for limite de requisições."
     ),
-    "ia": "Confira a chave (GEMINI_API_KEY ou ANTHROPIC_API_KEY), IA_PROVEDOR, o modelo e o saldo/limite no .env.",
+    "ia": "Confira a chave (OPENROUTER_API_KEY, GEMINI_API_KEY ou ANTHROPIC_API_KEY), IA_PROVEDOR, o modelo (no OpenRouter só :free) e o limite diário no .env.",
 }
 
 

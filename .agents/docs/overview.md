@@ -18,7 +18,8 @@ Sistema web de apoio à decisão para investidores iniciantes em ações da B3,
 desenvolvido como TCC. O usuário escolhe um ativo; o sistema busca o histórico
 de preços no Yahoo Finance (biblioteca `yfinance`), calcula indicadores
 técnicos (RSI, MACD, médias móveis de 20 e 50 períodos) e envia os dados a uma
-LLM (Gemini por padrão, Claude opcional). A LLM devolve COMPRA, VENDA ou
+LLM (OpenRouter com modelo NVIDIA gratuito por padrão; Gemini e Claude
+opcionais). A LLM devolve COMPRA, VENDA ou
 MANTER, explica o que a empresa faz e justifica a recomendação em linguagem
 simples, listando os riscos.
 
@@ -35,8 +36,10 @@ ao buy and hold. A recomendação é apoio à decisão, nunca garantia de retorn
 - **Persistência**: PostgreSQL 16 via SQLAlchemy 2
   ([`src/models/entities/`](../../src/models/entities/),
   [`schema.sql`](../../schema.sql))
-- **Integrações**: Yahoo Finance (`yfinance`), Google Gemini (`google-genai`),
-  Anthropic Claude (`anthropic`)
+- **Integrações**: Yahoo Finance (`yfinance`), OpenRouter (modelos NVIDIA
+  `:free`, via `httpx`), Google Gemini (`google-genai`), Anthropic Claude
+  (`anthropic`); lista de ações da B3 obtida da brapi.dev (só no script de
+  atualização do catálogo)
 - **Deploy**: Docker Compose com app, banco e pgAdmin
   ([`docker-compose.yml`](../../docker-compose.yml))
 
@@ -53,10 +56,12 @@ Service (regra de negócio e banco) → Entity (tabelas SQLAlchemy). Detalhes em
 | Catálogo de ativos | Ativos da B3 pré-cadastrados e sugeridos nas telas | [`specs/catalogo-ativos.md`](./specs/catalogo-ativos.md) |
 | Interface          | Tema, navegação, formatação pt-BR, telas           | [`specs/interface.md`](./specs/interface.md) |
 | Análise com IA     | Indicadores técnicos + recomendação da LLM (JSON)  | [`specs/analise-ia.md`](./specs/analise-ia.md) |
+| Análise múltipla   | Até 5 ativos por vez, quadro comparativo           | [`specs/analise-multipla.md`](./specs/analise-multipla.md) |
+| Provedor de IA     | OpenRouter + NVIDIA Nemotron gratuito (padrão)     | [`specs/provedor-openrouter.md`](./specs/provedor-openrouter.md) |
 | Backtesting        | Simulação MACD + RSI vs buy and hold               | [`specs/backtesting.md`](./specs/backtesting.md) |
 | Persistência       | Migrações Alembic, tipos e consultas               | [`specs/persistencia.md`](./specs/persistencia.md) |
 | Autenticação       | Cadastro e login (PBKDF2)                          | TODO |
-| Carteira           | Posições, preço médio, cotação atual               | TODO (telas em `interface.md`) |
+| Carteira           | Posições, preço médio, cotação atualizada          | [`specs/carteira.md`](./specs/carteira.md) |
 
 ## Glossário
 

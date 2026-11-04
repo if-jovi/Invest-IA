@@ -1,5 +1,7 @@
 import logging
 import time
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from typing import Optional
 import pandas as pd
 import yfinance as yf
@@ -9,8 +11,9 @@ from src.models.entities.StockEntity import StockEntity
 logger = logging.getLogger(__name__)
 
 NAO_DISPONIVEL = "Não disponível"
-COTACAO_VALIDADE_SEGUNDOS = 300
-COTACAO_FALHA_SEGUNDOS = 60
+COTACAO_VALIDADE_SEGUNDOS = 60
+COTACAO_FALHA_SEGUNDOS = 30
+FUSO_BRASILIA = ZoneInfo("America/Sao_Paulo")
 
 SETORES = {
     "Energy": "Energia",
@@ -118,24 +121,105 @@ class YfinanceService:
         stock = self.buscarInfo(item)
         return {"item": item, "nome": stock.nome, "setor": stock.setor}
 
-    def buscarPrecoAtual(self, item: str) -> Optional[float]:
-        chave = self.normalizarItem(item)
-        agora = time.time()
-        guardado = YfinanceService.cotacoes.get(chave)
-        if guardado is not None:
-            instante, preco, falhou = guardado
-            validade = COTACAO_FALHA_SEGUNDOS if falhou else COTACAO_VALIDADE_SEGUNDOS
-            if agora - instante < validade:
-                return preco
+    def baixarFechamentos(self, codigos: list) -> Optional[pd.DataFrame]:
+        """Uma única chamada ao Yahoo para todos os ativos.
 
+        Devolve uma tabela com uma coluna de fechamento por código
+        (ex.: colunas PETR4, VALE3) ou None se o Yahoo falhar.
+        """
+        simbolos = [self.simbolo(c) for c in codigos]
         try:
-            fechamentos = yf.Ticker(self.simbolo(chave)).history(period="5d")["Close"].dropna()
-            preco = float(fechamentos.iloc[-1])
+            dados = yf.download(
+                simbolos, period="5d", interval="1d", group_by="ticker",
+                auto_adjust=False, progress=False,
+            )
         except Exception as erro:
-            logger.warning("Falha ao buscar cotação de %s: %r", chave, erro)
-            anterior = guardado[1] if guardado is not None else None
-            YfinanceService.cotacoes[chave] = (agora, anterior, True)
-            return anterior
+            logger.warning("Falha ao buscar cotações de %s: %r", simbolos, erro)
+            return None
 
-        YfinanceService.cotacoes[chave] = (agora, preco, False)
-        return preco
+        fechamentos = pd.DataFrame(index=dados.index)
+        for codigo, simbolo in zip(codigos, simbolos):
+            if simbolo in dados.columns.get_level_values(0):
+                fechamentos[codigo] = dados[simbolo]["Close"]
+        return fechamentos
+
+    def montarCotacao(self, fechamentos: pd.Series) -> Optional[dict]:
+        """Último fechamento = preço atual; o anterior serve para a variação do dia."""
+        valores = fechamentos.dropna()
+        if valores.empty:
+            return None
+
+        preco = float(valores.iloc[-1])
+        anterior = float(valores.iloc[-2]) if len(valores) > 1 else None
+        variacaoDia = (preco / anterior - 1) * 100 if anterior else None
+        return {
+            "preco": preco,
+            "fechamentoAnterior": anterior,
+            "variacaoDia": variacaoDia,
+            "atualizadoEm": datetime.now(FUSO_BRASILIA).replace(tzinfo=None),
+            "desatualizada": False,
+        }
+
+    def lerCache(self, codigo: str, agora: float):
+        """Devolve (encontrou, cotacao). Sucesso vale 60 s; falha vale 30 s."""
+        guardado = YfinanceService.cotacoes.get(codigo)
+        if guardado is None:
+            return False, None
+
+        validade = COTACAO_FALHA_SEGUNDOS if guardado["falhou"] else COTACAO_VALIDADE_SEGUNDOS
+        if agora - guardado["instante"] >= validade:
+            return False, None
+
+        cotacao = guardado["cotacao"]
+        if guardado["falhou"] and cotacao is not None:
+            cotacao = {**cotacao, "desatualizada": True}
+        return True, cotacao
+
+    def guardarCache(self, codigo: str, agora: float, cotacao: Optional[dict], falhou: bool) -> None:
+        YfinanceService.cotacoes[codigo] = {"instante": agora, "cotacao": cotacao, "falhou": falhou}
+
+    def buscarCotacoes(self, itens: list, forcar: bool = False) -> dict:
+        """Cotação de vários ativos de uma vez: {"PETR4": {...} ou None}."""
+        codigos = []
+        for item in itens:
+            codigo = self.normalizarItem(item)
+            if codigo and codigo not in codigos:
+                codigos.append(codigo)
+
+        agora = time.time()
+        resultado = {}
+        pendentes = []
+        for codigo in codigos:
+            encontrou, cotacao = (False, None) if forcar else self.lerCache(codigo, agora)
+            if encontrou:
+                resultado[codigo] = cotacao
+            else:
+                pendentes.append(codigo)
+
+        if not pendentes:
+            return resultado
+
+        fechamentos = self.baixarFechamentos(pendentes)
+        for codigo in pendentes:
+            cotacao = None
+            if fechamentos is not None and codigo in fechamentos:
+                cotacao = self.montarCotacao(fechamentos[codigo])
+
+            if cotacao is not None:
+                self.guardarCache(codigo, agora, cotacao, falhou=False)
+                resultado[codigo] = cotacao
+                continue
+
+            # Sem cotação nova: mantém a última conhecida, marcada como desatualizada.
+            anterior = (YfinanceService.cotacoes.get(codigo) or {}).get("cotacao")
+            if fechamentos is not None and anterior is None:
+                self.guardarCache(codigo, agora, None, falhou=False)
+                resultado[codigo] = None
+            else:
+                self.guardarCache(codigo, agora, anterior, falhou=True)
+                resultado[codigo] = {**anterior, "desatualizada": True} if anterior else None
+        return resultado
+
+    def buscarPrecoAtual(self, item: str) -> Optional[float]:
+        cotacao = self.buscarCotacoes([item]).get(self.normalizarItem(item))
+        return cotacao["preco"] if cotacao is not None else None

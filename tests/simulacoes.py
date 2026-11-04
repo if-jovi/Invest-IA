@@ -38,6 +38,12 @@ YfinanceService.validarItem = lambda self, item: self.normalizarItem(item) != "Z
 YfinanceService.buscarInfo = lambda self, item: StockEntity(
     item=self.normalizarItem(item), nome=f"Empresa {self.normalizarItem(item)} S.A.", setor="Energia",
     segmento="Petroleo", descricao="Oil and gas company.")
+from datetime import datetime as _dt
+YfinanceService.buscarCotacoes = lambda self, itens, forcar=False: {
+    i: {"preco": 40.0, "fechamentoAnterior": 38.0, "variacaoDia": (40.0 / 38.0 - 1) * 100,
+        "atualizadoEm": _dt(2026, 11, 4, 14, 5), "desatualizada": False}
+    for i in itens
+}
 YfinanceService.buscarPrecoAtual = lambda self, item: 40.0
 
 TEXTO = """RECOMENDAÇÃO: COMPRA

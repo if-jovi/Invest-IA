@@ -8,6 +8,10 @@ SUITES = [
     ("Integração com o yfinance", "teste_yfinance.py"),
     ("Integração com a API da Claude", "teste_claude.py"),
     ("Integração com a API do Gemini", "teste_gemini.py"),
+    ("Integração com o OpenRouter", "teste_openrouter.py"),
+    ("Catálogo de ativos da B3", "teste_catalogo.py"),
+    ("Análise de vários ativos", "teste_analise_multipla.py"),
+    ("Tema, paleta e formatação", "teste_estilo.py"),
     ("Interface Streamlit de ponta a ponta", "teste_interface.py"),
 ]
 

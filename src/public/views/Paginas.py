@@ -1,18 +1,30 @@
 import streamlit as st
 
-CARTEIRA = "Minha carteira"
-ANALISE = "Análise de ativo"
-BACKTESTING = "Backtesting"
-TODAS = [CARTEIRA, ANALISE, BACKTESTING]
+CARTEIRA = "carteira"
+ANALISE = "analise"
+BACKTESTING = "backtesting"
 
-CHAVE_ANALISE = "analiseItem"
+PAGINAS = {
+    CARTEIRA: ("paginas/carteira.py", "Minha carteira", ":material/account_balance_wallet:"),
+    ANALISE: ("paginas/analise.py", "Análise de ativo", ":material/insights:"),
+    BACKTESTING: ("paginas/backtesting.py", "Backtesting", ":material/history:"),
+}
+
+CHAVE_ANALISE = "analiseItens"
 CHAVE_BACKTEST = "backtestItem"
 
 
-def irPara(pagina: str, chave: str = None, valor: str = None) -> None:
-    st.session_state["pagina"] = pagina
+def criarPaginas() -> list:
+    return [
+        st.Page(arquivo, title=titulo, icon=icone, url_path=chave, default=chave == CARTEIRA)
+        for chave, (arquivo, titulo, icone) in PAGINAS.items()
+    ]
+
+
+def irPara(pagina: str, chave: str = None, valor=None) -> None:
     if chave is not None:
         st.session_state[chave] = valor
+    st.switch_page(PAGINAS[pagina][0])
 
 
 def agendarMensagem(tipo: str, texto: str) -> None:
@@ -25,6 +37,6 @@ def exibirMensagem() -> None:
         return
     tipo, texto = mensagem
     if tipo == "sucesso":
-        st.success(texto)
+        st.success(texto, icon=":material/check_circle:")
     else:
         st.info(texto)

@@ -1,10 +1,10 @@
-# Spec — Catálogo de ativos da B3 e sugestões
+# Spec — Catálogo de ativos da B3 e autocomplete
 
 ## Objetivo
 
-Deixar o banco pré-carregado com as principais ações da B3 e sugerir esses
-ativos nas telas de Análise e Backtesting, para o usuário escolher em uma lista
-em vez de digitar o código de memória.
+Deixar o sistema com a lista completa de ações negociadas na B3 e usá-la como
+autocomplete nos campos de ativo (Análise, Backtesting e compra na Carteira),
+para o usuário buscar por código ou nome em vez de digitar o ticker de memória.
 
 ## Audiência
 
@@ -18,157 +18,144 @@ em vez de digitar o código de memória.
 - A tabela `itens_b3` (`item`, `nome`, `setor`, `ativo`) só ganha linhas quando
   alguém analisa ou compra um ativo: `ItensB3Service.obterOuCadastrar` valida o
   código no Yahoo e grava.
-- `src/scripts/SeedItensB3.py` tem 10 códigos fixos, mas é manual e consulta o
-  Yahoo para cada um (lento e sujeito ao erro 429).
-- Análise e Backtesting usam um `text_input` livre.
+- `src/scripts/SeedItensB3.py` tem 10 códigos fixos, é manual e consulta o Yahoo
+  para cada um (lento e sujeito ao erro 429).
+- Análise, Backtesting e o formulário de compra usam `text_input` livre.
+- Não foi encontrado repositório no GitHub mantido com a lista completa; a
+  fonte escolhida é a API pública da [brapi.dev](https://brapi.dev)
+  (`GET /api/quote/list`, gratuita e sem token), que devolve ~780 registros
+  `type = "stock"` com nome e setor; descartados os códigos do mercado
+  fracionário (`PETR4F`), restam **~377 ações** (inclui units como `KLBN11`).
+  Verificado em 04/11/2026.
 
 ## Escopo
 
 **Entra:**
 
-1. Catálogo estático no código (`CATALOGO_B3`: código, nome, setor) com as
-   ações listadas em [Catálogo inicial](#catálogo-inicial).
-2. Seed automático e offline na inicialização do app (junto de
-   `criarTabelas()`), sem chamar o Yahoo.
-3. Seletor de ativo nas telas **Análise de ativo** e **Backtesting**: lista
-   do catálogo com busca, que também aceita digitar um código fora da lista
-   (`st.selectbox(accept_new_options=True)`, disponível após a atualização do
-   Streamlit — ver [`interface.md`](./interface.md)).
-4. `SeedItensB3` sem argumentos passa a gravar o catálogo estático (offline);
+1. Arquivo versionado `src/data/ativos_b3.json` com as ações da B3
+   (`item`, `nome`, `setor`), gerado a partir da brapi.
+2. Script `python -m src.scripts.AtualizarCatalogoB3` que baixa a lista da
+   brapi, filtra `type == "stock"`, traduz o setor e regrava o JSON (uso manual,
+   quando o autor quiser atualizar o catálogo).
+3. Seed automático e **offline** na inicialização do app (junto de
+   `criarTabelas()`), lendo o JSON — nenhuma chamada de rede.
+4. Autocomplete (seletor com busca) nos campos de ativo:
+   - **Análise**: seleção de vários ativos (ver
+     [`analise-multipla.md`](./analise-multipla.md));
+   - **Backtesting**: seleção de um ativo;
+   - **Carteira › Registrar compra**: seleção de um ativo.
+   Todos aceitam digitar um código fora da lista (`accept_new_options=True`,
+   Streamlit ≥ 1.66 — ver [`interface.md`](./interface.md)).
+5. `SeedItensB3` sem argumentos passa a gravar o catálogo do JSON (offline);
    com argumentos mantém o comportamento atual (valida no Yahoo).
 
 **Fica de fora:**
 
-- Formulário de compra da Carteira (continua com campo de texto livre).
-- Atualizar automaticamente a composição do Ibovespa ou buscar a lista na
-  internet.
+- FIIs, ETFs e BDRs (decisão do autor: só ações).
+- Consultar a brapi em tempo de execução do app (só o script de atualização a
+  acessa).
+- Atualização automática/agendada do JSON.
 - Tela de administração do catálogo (ativar/desativar fica pelo banco/pgAdmin).
-- FIIs, ETFs e BDRs.
 
 ## Comportamento
 
+### Formato do JSON
+
+```json
+[
+  {"item": "PETR4", "nome": "PETROBRAS PN", "setor": "Energia"},
+  {"item": "VALE3", "nome": "VALE ON", "setor": "Materiais Básicos"}
+]
+```
+
+- Ordenado por `item`, sem códigos repetidos.
+- `item` sem o sufixo `.SA` e válido para `ItensB3Service.validarFormato`;
+  ativos da brapi com código fora desse formato são descartados pelo script.
+- `nome` como vem da brapi (sem reescrita de caixa).
+- `setor` traduzido para pt-BR pela tabela `SETORES_BRAPI` do script; setor
+  ausente ou não mapeado vira `"Não disponível"`.
+
+### Script de atualização
+
+- Sucesso: grava o JSON e imprime quantos ativos foram gravados.
+- Falha de rede, HTTP ≠ 200 ou resposta sem a chave `stocks`: termina com
+  código de saída ≠ 0, mensagem clara, e **não** sobrescreve o JSON existente.
+- Resposta com menos de 300 ações (sinal de resposta truncada): mesmo
+  tratamento de falha.
+
 ### Seed
 
-- Na inicialização, para cada ativo de `CATALOGO_B3` **ausente** em
-  `itens_b3`, insere `item`, `nome`, `setor` e `ativo = TRUE`.
-- Ativo que **já existe** não é alterado (preserva o nome vindo do Yahoo e um
+- Na inicialização, para cada ativo do JSON **ausente** em `itens_b3`, insere
+  `item`, `nome`, `setor` e `ativo = TRUE`, em uma única transação.
+- Ativo que **já existe** não é alterado (preserva nome vindo do Yahoo e um
   `ativo = FALSE` definido manualmente).
-- Nenhuma requisição de rede acontece no seed.
+- JSON ausente ou inválido: o app sobe normalmente sem seed e registra aviso
+  no log (o catálogo só fica menor; não é erro fatal).
 
-### Seletor (Análise e Backtesting)
+### Seletor (autocomplete)
 
-- Opções: todos os ativos de `itens_b3` com `ativo = TRUE`, ordenados pelo
-  código, com rótulo `CÓDIGO — Nome (Setor)`, ex.: `PETR4 — Petrobras
-  (Energia)`. Inclui ativos que usuários cadastraram ao analisar códigos fora
-  do catálogo.
-- O usuário pode digitar para filtrar a lista ou informar um código que não
-  está nela; nesse caso vale o fluxo atual (validação de formato, consulta ao
-  Yahoo, cadastro no catálogo). Na próxima visita, esse ativo já aparece na
-  lista.
-- O valor enviado ao controller continua sendo o código (`PETR4`), sem
-  alteração nas assinaturas de `AnaliseController.analisar` e
-  `BacktestController.executar`.
-- Os atalhos "Analisar"/"Backtesting" da Carteira continuam levando o ativo:
-  ele vem selecionado no seletor (como opção da lista ou como valor digitado).
+- Opções: ativos de `itens_b3` com `ativo = TRUE`, ordenados pelo código, com
+  rótulo `CÓDIGO — Nome`, ex.: `PETR4 — PETROBRAS PN`. A busca do componente
+  filtra tanto pelo código quanto pelo nome. Inclui ativos que usuários
+  cadastraram ao analisar códigos fora do catálogo.
+- A lista é carregada uma vez e reaproveitada (`st.cache_data`, validade de
+  10 min) para não consultar o banco a cada interação.
+- Código digitado fora da lista: vale o fluxo atual (normalização, validação de
+  formato, consulta ao Yahoo, cadastro no catálogo).
+- O valor enviado ao controller continua sendo o código (`PETR4`); as
+  assinaturas de `BacktestController.executar` e
+  `ItensCarteiraController.adicionarCompra` não mudam.
+- Os atalhos "Analisar"/"Backtesting" da Carteira abrem a página com o ativo
+  já selecionado.
 
 ## Critérios de aceite
 
 | ID   | Critério |
 | ---- | -------- |
-| CA1  | Com o banco vazio, após `criarTabelas()` + seed, `itens_b3` contém todos os códigos de `CATALOGO_B3` com nome, setor e `ativo = TRUE`. |
+| CA1  | Com o banco vazio, após `criarTabelas()` + seed, `itens_b3` contém todos os códigos do JSON com nome, setor e `ativo = TRUE`. |
 | CA2  | Rodar o seed duas vezes não duplica linhas nem levanta erro. |
 | CA3  | Um ativo pré-existente com nome diferente ou `ativo = FALSE` mantém seus valores após o seed. |
-| CA4  | O seed não chama o `YfinanceService` (funciona sem internet). |
-| CA5  | `ItensB3Service` expõe a lista de ativos ativos ordenada por código; ativos com `ativo = FALSE` não aparecem. |
-| CA6  | Na tela de Análise, escolher `PETR4` na lista e clicar em Analisar gera a análise de `PETR4`. |
-| CA7  | Na tela de Análise, digitar no seletor um código válido fora do catálogo e analisar cadastra o ativo; ele passa a constar na lista. |
-| CA8  | Na tela de Backtesting, o mesmo seletor funciona (lista e código digitado). |
-| CA9  | O atalho "Analisar" da Carteira abre a Análise com o ativo da carteira selecionado. |
-| CA10 | `python -m src.scripts.SeedItensB3` sem argumentos grava o catálogo sem acessar a internet; com argumentos mantém a validação pelo Yahoo. |
-| CA11 | Todo código de `CATALOGO_B3` respeita o formato aceito por `ItensB3Service.validarFormato`. |
+| CA4  | O seed não chama o `YfinanceService` nem faz requisição HTTP. |
+| CA5  | `ItensB3Service.listarAtivos()` devolve os ativos com `ativo = TRUE` ordenados por código; ativos com `ativo = FALSE` não aparecem. |
+| CA6  | O JSON versionado tem ≥ 300 ações, sem códigos repetidos, ordenado, e todo `item` passa em `validarFormato`; contém `PETR4`, `VALE3`, `ITUB4` e `KLBN11`. |
+| CA7  | O script, com a brapi simulada devolvendo ações, fundos e BDRs, grava só `type == "stock"`, com setor traduzido e códigos inválidos descartados. |
+| CA8  | O script, com a brapi simulada falhando (erro de rede, HTTP 500, payload sem `stocks` ou < 300 ações), sai com código ≠ 0 e o JSON anterior fica intacto. |
+| CA9  | JSON ausente ou corrompido: a inicialização do app não falha. |
+| CA10 | Na Análise, Backtesting e Registrar compra, o campo de ativo é um seletor com as opções do catálogo no formato `CÓDIGO — Nome`. |
+| CA11 | Nos três seletores, digitar um código válido fora do catálogo funciona e cadastra o ativo; ele passa a constar na lista. |
+| CA12 | O atalho "Analisar" da Carteira abre a Análise com o ativo selecionado; o atalho "Backtesting" idem. |
+| CA13 | `python -m src.scripts.SeedItensB3` sem argumentos grava o catálogo do JSON sem acessar a internet; com argumentos mantém a validação pelo Yahoo. |
 
 ## Casos-limite e erros
 
 - **Catálogo vazio no banco** (ex.: todos desativados): o seletor fica sem
   opções, mas continua aceitando código digitado.
-- **Nada selecionado**: mantém a mensagem atual "Informe o código do ativo.".
-- **Código digitado que já está na lista**: funciona normalmente (normalizado
-  para maiúsculas, sem `.SA`).
-- **Falha de banco no seed**: mesma tela de erro de conexão que já existe em
-  `Main.py` (o app não sobe pela metade).
+- **Nada selecionado**: mensagem atual "Informe o código do ativo." (Backtesting
+  e compra).
+- **Código digitado em minúsculas ou com `.SA`**: normalizado (`petr4.sa` →
+  `PETR4`); se já existe na lista, usa o ativo existente.
 - **Ticker do catálogo que deixou de existir no Yahoo**: aparece na lista; ao
-  analisar, mostra o erro atual "Nenhum dado encontrado para X.SA.". A lista
-  é revisada manualmente.
-
-## Catálogo inicial
-
-Ações líquidas do Ibovespa, com setores no mesmo vocabulário que o
-`YfinanceService.SETORES` já usa. TODO: revisar contra a carteira teórica
-vigente do Ibovespa antes da apresentação. Ficaram de fora tickers que mudaram
-de código recentemente (fusões e renomeações) para evitar códigos inválidos.
-
-| Código | Nome | Setor |
-| ------ | ---- | ----- |
-| PETR3 | Petrobras ON | Energia |
-| PETR4 | Petrobras PN | Energia |
-| PRIO3 | PRIO | Energia |
-| UGPA3 | Ultrapar | Energia |
-| VBBR3 | Vibra Energia | Energia |
-| CSAN3 | Cosan | Energia |
-| VALE3 | Vale | Materiais Básicos |
-| SUZB3 | Suzano | Materiais Básicos |
-| GGBR4 | Gerdau | Materiais Básicos |
-| CSNA3 | CSN | Materiais Básicos |
-| USIM5 | Usiminas | Materiais Básicos |
-| KLBN11 | Klabin | Materiais Básicos |
-| ITUB4 | Itaú Unibanco | Serviços Financeiros |
-| BBDC4 | Bradesco | Serviços Financeiros |
-| BBAS3 | Banco do Brasil | Serviços Financeiros |
-| SANB11 | Santander Brasil | Serviços Financeiros |
-| BPAC11 | BTG Pactual | Serviços Financeiros |
-| ITSA4 | Itaúsa | Serviços Financeiros |
-| B3SA3 | B3 | Serviços Financeiros |
-| BBSE3 | BB Seguridade | Serviços Financeiros |
-| ABEV3 | Ambev | Consumo Não Cíclico |
-| ASAI3 | Assaí | Consumo Não Cíclico |
-| LREN3 | Lojas Renner | Consumo Cíclico |
-| MGLU3 | Magazine Luiza | Consumo Cíclico |
-| RENT3 | Localiza | Consumo Cíclico |
-| CYRE3 | Cyrela | Consumo Cíclico |
-| WEGE3 | WEG | Industrial |
-| RAIL3 | Rumo | Industrial |
-| EQTL3 | Equatorial | Utilidade Pública |
-| CMIG4 | Cemig | Utilidade Pública |
-| SBSP3 | Sabesp | Utilidade Pública |
-| EGIE3 | Engie Brasil | Utilidade Pública |
-| TAEE11 | Taesa | Utilidade Pública |
-| ENGI11 | Energisa | Utilidade Pública |
-| RADL3 | Raia Drogasil | Saúde |
-| RDOR3 | Rede D'Or | Saúde |
-| HAPV3 | Hapvida | Saúde |
-| VIVT3 | Telefônica Brasil (Vivo) | Comunicação |
-| TIMS3 | TIM | Comunicação |
-| TOTS3 | Totvs | Tecnologia |
-| MULT3 | Multiplan | Imobiliário |
+  usar, mostra o erro atual "Nenhum dado encontrado para X.SA.".
+- **Falha de banco no seed**: mesma tela de erro de conexão que já existe em
+  `Main.py`.
 
 ## Testes previstos (Fase 2)
 
-- `tests/teste_catalogo.py` (novo): CA1–CA5, CA10, CA11, com SQLite temporário
-  no mesmo padrão de `teste_logica.py` e `YfinanceService` substituído por um
-  dublê que falha se for chamado (CA4).
-- `tests/teste_interface.py` (ajuste): o fluxo atual usa
-  `text_input(key="analiseItem")` e `text_input(key="backtestItem")`; passa a
-  usar o seletor. Cobre CA6–CA9.
+- `tests/teste_catalogo.py` (novo): CA1–CA9, CA13, com SQLite temporário no
+  padrão de `teste_logica.py`, `YfinanceService` substituído por dublê que
+  falha se chamado (CA4) e brapi simulada via `httpx.MockTransport` (CA7, CA8).
+- `tests/teste_interface.py` (ajuste): CA10–CA12 com `AppTest`.
 
 ---
 
 ## Referências
 
-- Catálogo atual: [`src/models/entities/ItensB3Entity.py`](../../../src/models/entities/ItensB3Entity.py),
+- Catálogo: [`src/models/entities/ItensB3Entity.py`](../../../src/models/entities/ItensB3Entity.py),
   [`src/models/services/ItensB3Service.py`](../../../src/models/services/ItensB3Service.py)
 - Seed manual: [`src/scripts/SeedItensB3.py`](../../../src/scripts/SeedItensB3.py)
 - Inicialização: [`src/public/Main.py`](../../../src/public/Main.py),
   [`src/models/base.py`](../../../src/models/base.py)
 - Telas: [`src/public/views/AnaliseView.py`](../../../src/public/views/AnaliseView.py),
   [`src/public/views/BacktestView.py`](../../../src/public/views/BacktestView.py),
-  [`src/public/views/Paginas.py`](../../../src/public/views/Paginas.py)
+  [`src/public/views/CarteiraDashboard.py`](../../../src/public/views/CarteiraDashboard.py)
+- Fonte dos dados: <https://brapi.dev/api/quote/list>
