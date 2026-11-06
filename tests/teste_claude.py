@@ -17,17 +17,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 os.environ["DATABASE_URL"] = f"sqlite:///{PASTA}/claude.db"
 os.environ["ANTHROPIC_API_KEY"] = "chave-inicial"
 
-TEXTO = """RECOMENDAÇÃO: VENDA
-
-SOBRE A EMPRESA:
-Empresa de energia.
-
-JUSTIFICATIVA:
-O RSI indica sobrecompra.
-
-RISCOS:
-- Volatilidade
-"""
+from tests.respostas_ia import respostaJson
+TEXTO = respostaJson("VENDA", "Empresa de energia.", "O RSI indica sobrecompra.", ["Volatilidade"])
 requisicoes = []
 
 def erro(tipo, msg):

@@ -163,6 +163,26 @@ section[data-testid="stSidebar"] .stButton button {{
   .ia-cabecalho {{ padding: 18px; }}
   .ia-cabecalho h1 {{ font-size: 1.5rem; }}
   .block-container {{ padding-left: 1rem; padding-right: 1rem; }}
+
+  /* Celular: cards de métricas 2 por linha (o Streamlit empilharia um por linha) */
+  div[data-testid="stHorizontalBlock"]:has(> div[data-testid="stColumn"] div[data-testid="stMetric"]) {{
+    flex-wrap: wrap !important; gap: 0.5rem !important;
+  }}
+  div[data-testid="stHorizontalBlock"]:has(> div[data-testid="stColumn"] div[data-testid="stMetric"])
+    > div[data-testid="stColumn"] {{
+    flex: 1 1 calc(50% - 0.25rem) !important; min-width: calc(50% - 0.25rem) !important;
+    width: calc(50% - 0.25rem) !important;
+  }}
+  div[data-testid="stMetric"] {{ padding: 10px 12px; }}
+  div[data-testid="stMetricValue"] {{ font-size: 1.3rem !important; }}
+  div[data-testid="stMetricValue"] > div {{ white-space: normal !important; }}
+  [data-testid="stMetricLabel"], [data-testid="stMetricLabel"] * {{
+    white-space: normal !important; overflow: visible !important; text-overflow: clip !important;
+  }}
+  /* barra de ferramentas do Plotly: no toque fica sempre visível, por cima dos títulos */
+  .modebar-container {{ display: none !important; }}
+  /* barra de ferramentas das tabelas: no celular fica por cima dos títulos */
+  [data-testid="stElementToolbar"] {{ display: none !important; }}
 }}
 </style>
 """

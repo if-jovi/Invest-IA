@@ -1,14 +1,14 @@
 from html import escape
 import pandas as pd
 import streamlit as st
-from src.models.Parametros import SMA_SHORT, SMA_LONG, RSI_OVERBOUGHT, RSI_OVERSOLD
+from src.models.Parametros import SMA_SHORT, SMA_LONG, RSI_OVERBOUGHT, RSI_OVERSOLD, ROTULOS_PERIODO
 from src.controllers.AnaliseController import AnaliseController, LIMITE_ATIVOS_ANALISE
 from src.controllers.ItensCarteiraController import ItensCarteiraController
 from src.public.views import Estilo, Paginas, Seletores
 from src.public.views.charts import renderGraficoTecnico
-from src.public.views.Formatacao import moeda, variacao, decimal, dataBr, dataHora
+from src.public.views.Formatacao import moeda, variacao, decimal, dataBr, dataHora, percentual
 
-ROTULOS_PERIODO = {"3mo": "3 meses", "6mo": "6 meses", "1y": "1 ano", "2y": "2 anos"}
+SEM_PERIODO = "—"
 AVISO = (
     "Protótipo acadêmico de apoio à decisão: a recomendação não é garantia de retorno nem "
     "aconselhamento financeiro. A decisão final e a responsabilidade são do investidor."
@@ -33,11 +33,40 @@ def renderIntroducao() -> None:
             st.caption(texto)
 
 
+def rotuloPeriodo(periodo) -> str:
+    return ROTULOS_PERIODO.get(periodo, SEM_PERIODO) if periodo else SEM_PERIODO
+
+
 def variacaoPeriodo(ind) -> float:
-    fechamentos = ind.historico["Close"].dropna() if ind.historico is not None else []
-    if len(fechamentos) < 2 or not fechamentos.iloc[0]:
-        return None
-    return (float(fechamentos.iloc[-1]) / float(fechamentos.iloc[0]) - 1) * 100
+    resumo = getattr(ind, "resumo_periodo", None)
+    return resumo["retornoPct"] if resumo else None
+
+
+def renderResumoPeriodo(ind) -> None:
+    resumo = getattr(ind, "resumo_periodo", None)
+    if not resumo:
+        return
+    st.markdown(f"#### Comportamento em {rotuloPeriodo(ind.periodo)}")
+    colunas = st.columns(3)
+    colunas[0].metric("Retorno no período", variacao(resumo["retornoPct"]),
+                      help="Quanto o preço variou do primeiro ao último dia do período.")
+    colunas[1].metric("Máxima do período", moeda(resumo["maxima"]),
+                      help="Maior preço de fechamento no período.")
+    colunas[1].caption(f"Preço atual {percentual(abs(resumo['distanciaMaximaPct']))} abaixo.")
+    colunas[2].metric("Mínima do período", moeda(resumo["minima"]),
+                      help="Menor preço de fechamento no período.")
+    colunas[2].caption(f"Preço atual {percentual(resumo['distanciaMinimaPct'])} acima.")
+    colunas = st.columns(3)
+    colunas[0].metric("Volatilidade anualizada", percentual(resumo["volatilidadeAnualPct"]),
+                      help="Quanto o preço costuma oscilar; quanto maior, mais arriscado.")
+    colunas[1].metric("Drawdown máximo", variacao(resumo["drawdownMaximoPct"]),
+                      help="Maior queda de um pico até um fundo dentro do período.")
+    ibovespa = getattr(ind, "ibovespa", None)
+    colunas[2].metric("Ibovespa no período", variacao(ibovespa["retornoPct"] if ibovespa else None),
+                      help="Quanto o índice da B3 variou no mesmo período: a referência do mercado.")
+    if ibovespa:
+        lado = "acima" if ibovespa["diferencaPct"] >= 0 else "abaixo"
+        colunas[2].caption(f"A ação ficou {decimal(abs(ibovespa['diferencaPct']))} p.p. {lado} do índice.")
 
 
 def renderCardRecomendacao(resultado: dict) -> None:
@@ -110,6 +139,7 @@ def renderHistorico(controller: AnaliseController, item: str) -> None:
                 [
                     {
                         "Data de referência": dataBr(h["dataReferencia"]),
+                        "Período": rotuloPeriodo(h["periodo"]),
                         "Recomendação": h["recomendacao"],
                         "Preço": moeda(h["precoAtual"]),
                         "RSI": decimal(h["rsi"]),
@@ -151,6 +181,7 @@ def renderDetalhe(controller: AnaliseController, resultado: dict, usuario: dict)
     renderCardRecomendacao(resultado)
     renderExplicacao(resultado["recomendacao"])
     renderIndicadores(ind)
+    renderResumoPeriodo(ind)
     st.markdown("#### Gráfico histórico")
     renderGraficoTecnico(ind.historico, ativo["item"])
     renderHistorico(controller, ativo["item"])

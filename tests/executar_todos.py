@@ -5,12 +5,19 @@ from pathlib import Path
 PASTA = Path(__file__).resolve().parent
 SUITES = [
     ("Regras de negócio e banco de dados", "teste_logica.py"),
+    ("Migrações e consultas do banco", "teste_persistencia.py"),
     ("Integração com o yfinance", "teste_yfinance.py"),
     ("Integração com a API da Claude", "teste_claude.py"),
     ("Integração com a API do Gemini", "teste_gemini.py"),
     ("Integração com o OpenRouter", "teste_openrouter.py"),
     ("Catálogo de ativos da B3", "teste_catalogo.py"),
     ("Análise de vários ativos", "teste_analise_multipla.py"),
+    ("Análise considerando o período", "teste_analise_periodo.py"),
+    ("Resposta da IA em JSON", "teste_analise_ia_json.py"),
+    ("Aquecimento dos indicadores", "teste_aquecimento.py"),
+    ("Comparação com o Ibovespa", "teste_ibovespa.py"),
+    ("Backtesting: Sharpe, custos e posição aberta", "teste_backtesting.py"),
+    ("Desempenho da IA", "teste_desempenho_ia.py"),
     ("Tema, paleta e formatação", "teste_estilo.py"),
     ("Interface Streamlit de ponta a ponta", "teste_interface.py"),
 ]

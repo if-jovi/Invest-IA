@@ -4,3 +4,4 @@ from src.models.entities.ItensB3Entity import ItensB3Entity
 from src.models.entities.ItensCarteirasEntity import ItensCarteirasEntity
 from src.models.entities.OperacoesEntity import OperacoesEntity
 from src.models.entities.RecomendacoesEntity import RecomendacoesEntity
+from src.models.entities.AvaliacoesIaEntity import AvaliacoesIaEntity

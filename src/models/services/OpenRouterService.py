@@ -3,7 +3,8 @@ import os
 import httpx
 from src.models.entities.RecomendacoesEntity import RecomendacoesEntity
 from src.models.entities.StockEntity import StockEntity, IndicatorsEntity
-from src.models.services.ClaudeService import ClaudeService
+from src.models.Parametros import SEED_IA
+from src.models.services.ClaudeService import ClaudeService, ESQUEMA_RESPOSTA, MENSAGEM_CORTADA
 
 logger = logging.getLogger(__name__)
 
@@ -12,7 +13,7 @@ MODELO_PADRAO = "nvidia/nemotron-3.5-super-vl:free"
 SUFIXO_GRATUITO = ":free"
 TIMEOUT_SEGUNDOS = 90.0
 TENTATIVAS = 2
-MAXIMO_TOKENS = 4096
+MAXIMO_TOKENS = 8192
 
 
 class ErroOpenRouter(Exception):
@@ -104,13 +105,21 @@ class OpenRouterService(ClaudeService):
         mensagem = erro.get("message") or resposta.text or f"HTTP {resposta.status_code}"
         raise ErroOpenRouter(codigo, mensagem)
 
-    def enviar(self, prompt: str, maximoTokens: int = MAXIMO_TOKENS) -> dict:
+    def enviar(self, prompt: str, maximoTokens: int = MAXIMO_TOKENS, estruturado: bool = False) -> dict:
         corpo = {
             "model": self.modelo(),
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.3,
             "max_tokens": maximoTokens,
+            "seed": SEED_IA,
+            # o modelo "raciocina" antes de responder e isso consome max_tokens (provedor-openrouter.md)
+            "reasoning": {"effort": "low"},
         }
+        if estruturado:
+            corpo["response_format"] = {
+                "type": "json_schema",
+                "json_schema": {"name": "recomendacao", "strict": True, "schema": ESQUEMA_RESPOSTA},
+            }
         cabecalhos = {"Authorization": f"Bearer {self.chave()}", "X-Title": "InvestIA"}
 
         # Só falhas de rede/timeout são repetidas; erro da API (4xx/5xx) volta na hora.
@@ -131,6 +140,8 @@ class OpenRouterService(ClaudeService):
 
     def extrairTexto(self, corpo: dict) -> str:
         escolhas = corpo.get("choices") or [{}]
+        if (escolhas[0] or {}).get("finish_reason") == "length":
+            raise RuntimeError(MENSAGEM_CORTADA)
         mensagem = (escolhas[0] or {}).get("message") or {}
         texto = (mensagem.get("content") or "").strip()
         if not texto:
@@ -139,7 +150,7 @@ class OpenRouterService(ClaudeService):
 
     def gerarRecomendacao(self, stock: StockEntity, ind: IndicatorsEntity) -> RecomendacoesEntity:
         self.validarConfiguracao()
-        corpo = self.enviar(self.montarPrompt(stock, ind))
+        corpo = self.enviar(self.montarPrompt(stock, ind), estruturado=True)
         return self.interpretar(self.extrairTexto(corpo), ind)
 
     def testarConexao(self) -> str:

@@ -3,11 +3,13 @@ import streamlit as st
 CARTEIRA = "carteira"
 ANALISE = "analise"
 BACKTESTING = "backtesting"
+DESEMPENHO = "desempenho"
 
 PAGINAS = {
     CARTEIRA: ("paginas/carteira.py", "Minha carteira", ":material/account_balance_wallet:"),
     ANALISE: ("paginas/analise.py", "Análise de ativo", ":material/insights:"),
     BACKTESTING: ("paginas/backtesting.py", "Backtesting", ":material/history:"),
+    DESEMPENHO: ("paginas/desempenho.py", "Desempenho da IA", ":material/verified:"),
 }
 
 CHAVE_ANALISE = "analiseItens"

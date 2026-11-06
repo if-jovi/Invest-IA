@@ -5,28 +5,41 @@ from src.public.views import Estilo, Paginas, Seletores
 from src.public.views.charts import renderGraficoBacktesting
 from src.public.views.Formatacao import dataBr, decimal, moeda, percentual, variacao
 
-ROTULOS_PERIODO = {"3mo": "3 meses", "6mo": "6 meses", "1y": "1 ano", "2y": "2 anos"}
+from src.models.Parametros import ROTULOS_PERIODO
+
+
+def textoSaida(op: dict) -> str:
+    return "Em aberto" if op.get("emAberto") else dataBr(str(op["dataSaida"]))
 
 
 def renderMetricas(metricas: dict) -> None:
     st.markdown("#### Estratégia MACD + RSI × Buy and Hold")
-    primeira = st.columns(3)
+    primeira = st.columns(4)
     primeira[0].metric("Retorno da estratégia", variacao(metricas["retornoAcumulado"]))
-    primeira[1].metric("Buy and Hold", variacao(metricas["retornoBuyHold"]))
+    primeira[1].metric("Buy and Hold", variacao(metricas["retornoBuyHold"]),
+                       help="Comprar no primeiro dia do período e vender no último.")
+    primeira[2].metric("Ibovespa no período", variacao(metricas.get("retornoIbovespa")),
+                       help="Referência de mercado: quanto o índice da B3 variou no mesmo período (sem custos).")
     diferenca = metricas["retornoAcumulado"] - metricas["retornoBuyHold"]
-    primeira[2].metric("Estratégia − Buy and Hold", variacao(diferenca), delta=variacao(diferenca))
+    primeira[3].metric("Estratégia − Buy and Hold", variacao(diferenca), delta=variacao(diferenca))
 
     segunda = st.columns(4)
     segunda[0].metric("Operações simuladas", metricas["totalOperacoes"])
     segunda[1].metric("Taxa de acerto", percentual(metricas["taxaAcerto"]))
     segunda[2].metric("Drawdown máximo", percentual(metricas["drawdownMaximo"]))
-    segunda[3].metric("Índice Sharpe (por operação)", decimal(metricas["sharpe"]))
+    segunda[3].metric("Índice de Sharpe (anualizado)", decimal(metricas["sharpe"]),
+                      help="Retorno médio diário ÷ oscilação diária × √252, sem taxa livre de risco.")
+    st.caption(
+        f"Custos incluídos: {percentual(metricas.get('custoOperacaoPct', 0))} em cada compra e em cada venda "
+        "(taxas da B3), também no Buy and Hold. Uma posição ainda aberta no último dia é encerrada pelo "
+        "fechamento desse dia e aparece como \"Em aberto\"."
+    )
 
 
 def renderCriterios(metricas: dict) -> None:
     criterios = [
         ("Taxa de acerto acima de 55%", metricas["taxaAcerto"] > 55),
-        ("Índice Sharpe acima de 1,0", metricas["sharpe"] > 1.0),
+        ("Índice de Sharpe acima de 1,0", metricas["sharpe"] > 1.0),
         ("Retorno acumulado acima do Buy and Hold", metricas["retornoAcumulado"] > metricas["retornoBuyHold"]),
     ]
     st.subheader("Critérios de avaliação do protótipo")
@@ -55,7 +68,7 @@ def renderResultado(resultado: dict) -> None:
                     {
                         "Entrada": dataBr(str(op["dataEntrada"])),
                         "Preço de entrada": moeda(op["precoEntrada"]),
-                        "Saída": dataBr(str(op["dataSaida"])),
+                        "Saída": textoSaida(op),
                         "Preço de saída": moeda(op["precoSaida"]),
                         "Resultado": variacao(op["resultadoPct"]),
                     }

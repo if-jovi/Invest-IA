@@ -143,6 +143,21 @@ assert {"RSI (14)", "MACD", "Média 20", "Média 50"} <= set(metricas(at)), metr
 assert not [t for t in at.tabs if t.label == "PETR4"], "um ativo não usa abas"
 print("OK  UI9/AM8 um ativo: card COMPRA, três seções e quatro indicadores")
 
+# PE10 — resumo do período no detalhe e coluna "Período" no histórico
+m = metricas(at)
+rotulosResumo = {"Retorno no período", "Máxima do período", "Mínima do período", "Volatilidade anualizada",
+                 "Drawdown máximo"}
+assert rotulosResumo <= set(m), m
+assert PCT.match(m["Retorno no período"]) and PCT.match(m["Volatilidade anualizada"]), m
+assert PCT.match(m["Drawdown máximo"]), m
+assert MOEDA.match(m["Máxima do período"]) and MOEDA.match(m["Mínima do período"]), m
+historicoTela = [d.value for d in at.dataframe if "Data de referência" in d.value.columns]
+assert historicoTela and "Período" in historicoTela[0].columns, [list(d.value.columns) for d in at.dataframe]
+assert set(historicoTela[0]["Período"]) == {"1 ano"}, historicoTela[0]
+print("OK  PE10 detalhe com o resumo do período e histórico com a coluna Período")
+assert "Ibovespa no período" in m and PCT.match(m["Ibovespa no período"]), m
+print("OK  IB4 análise com o card 'Ibovespa no período'")
+
 botao(at, "Analisar").click(); at.run()
 assert "reaproveitada" in textos(at)
 print("OK  segunda análise reaproveita o cache")
@@ -179,7 +194,10 @@ sem_excecao(at, "executar backtesting")
 m = metricas(at)
 assert {"Operações simuladas", "Taxa de acerto", "Retorno da estratégia", "Buy and Hold",
         "Drawdown máximo"} <= set(m), m
-assert any(rotulo.startswith("Índice Sharpe") for rotulo in m), m
+assert "Índice de Sharpe (anualizado)" in m, m
+assert "Ibovespa no período" in m and PCT.match(m["Ibovespa no período"]), m
+assert "custos" in textos(at).lower() and "0,03%" in textos(at), "aviso dos custos incluídos"
+print("OK  BT4/IB4 Sharpe anualizado, aviso de custos (0,03%) e card do Ibovespa no backtesting")
 for rotulo in ("Taxa de acerto", "Retorno da estratégia", "Buy and Hold", "Drawdown máximo"):
     assert PCT.match(m[rotulo]), (rotulo, m[rotulo])
 print("OK  CA10/UI10 Backtesting com seletor do catálogo e cards em pt-BR")
@@ -229,4 +247,35 @@ sem_excecao(at2, "login com a conta criada")
 assert "Olá, Maria" in textos(at2)
 assert list(at2.dataframe[0].value["Código"]) == ["B3SA3"]
 print("OK  login rejeita senha errada; após login a carteira salva continua lá")
+
+# DI8 — tela "Desempenho da IA"
+at2.switch_page("paginas/desempenho.py"); at2.run()
+sem_excecao(at2, "abrir Desempenho da IA")
+assert any(t.value == "Desempenho da IA" for t in at2.title), [t.value for t in at2.title]
+assert "python -m src.scripts.AvaliarIA" in textos(at2), "estado vazio orienta a gerar a avaliação histórica"
+print("OK  DI8 Desempenho da IA sem dados explica como gerar a avaliação histórica")
+
+from src.models.base import Session
+from src.models.entities.AvaliacoesIaEntity import AvaliacoesIaEntity
+serie = simulacoes.historicoFake("2y")
+with Session() as s:
+    for i, rec in zip(range(100, 400, 10), ["COMPRA", "VENDA", "MANTER"] * 10):
+        s.add(AvaliacoesIaEntity(item="PETR4", data_referencia=str(serie.index[i].date()), periodo="1y",
+                                 recomendacao=rec, preco=round(float(serie["Close"].iloc[i]), 2),
+                                 provedor="openrouter", modelo="nvidia/nemotron-3.5-super-vl:free",
+                                 resposta_completa="{}"))
+    s.commit()
+at2.run()
+sem_excecao(at2, "Desempenho da IA com dados")
+m = metricas(at2)
+for rotulo in ("Recomendações avaliadas", "Acerto geral", "Acerto de COMPRA", "Acerto contra o Ibovespa",
+               "Retorno médio após COMPRA"):
+    assert rotulo in m, (rotulo, m)
+assert m["Recomendações avaliadas"] == "30", m
+todos = textos(at2)
+for trecho in ("Como ler estes números", "Taxa base", "Viés de sobrevivência", "Amostra pequena"):
+    assert trecho in todos, trecho
+porTipo = [d.value for d in at2.dataframe if "Recomendação" in d.value.columns and "Acertos" in d.value.columns]
+assert porTipo and set(porTipo[0]["Recomendação"]) == {"COMPRA", "VENDA", "MANTER"}, porTipo
+print("OK  DI8 cards, tabela por tipo e quadro de limitações")
 print("\nTeste de interface concluido")

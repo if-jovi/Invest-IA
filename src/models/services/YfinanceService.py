@@ -5,7 +5,7 @@ from zoneinfo import ZoneInfo
 from typing import Optional
 import pandas as pd
 import yfinance as yf
-from src.models.Parametros import DEFAULT_PERIOD, DEFAULT_INTERVAL
+from src.models.Parametros import DEFAULT_PERIOD, DEFAULT_INTERVAL, DIAS_AQUECIMENTO, MESES_PERIODO, SIMBOLO_IBOVESPA
 from src.models.entities.StockEntity import StockEntity
 
 logger = logging.getLogger(__name__)
@@ -13,6 +13,9 @@ logger = logging.getLogger(__name__)
 NAO_DISPONIVEL = "Não disponível"
 COTACAO_VALIDADE_SEGUNDOS = 60
 COTACAO_FALHA_SEGUNDOS = 30
+INDICE_VALIDADE_SEGUNDOS = 3600
+COLUNAS_ATIVO = ["Open", "High", "Low", "Close", "Volume"]
+COLUNAS_INDICE = ["Close"]
 FUSO_BRASILIA = ZoneInfo("America/Sao_Paulo")
 
 SETORES = {
@@ -72,12 +75,51 @@ class YfinanceService:
             "Verifique a conexão do servidor com a internet."
         )
 
+    @staticmethod
+    def inicioComAquecimento(periodo: str) -> str:
+        """Hoje - período - DIAS_AQUECIMENTO (historico-aquecimento.md)."""
+        inicio = (pd.Timestamp.today().normalize() - pd.DateOffset(months=MESES_PERIODO[periodo])
+                  - pd.Timedelta(days=DIAS_AQUECIMENTO))
+        return inicio.strftime("%Y-%m-%d")
+
     def buscarHistorico(
         self, item: str, periodo: str = DEFAULT_PERIOD, intervalo: str = DEFAULT_INTERVAL
     ) -> pd.DataFrame:
-        simbolo = self.simbolo(item)
+        """Histórico do período com os pregões de aquecimento antes dele (períodos de MESES_PERIODO)."""
+        if periodo in MESES_PERIODO:
+            return self.consultarHistorico(self.simbolo(item), intervalo, start=self.inicioComAquecimento(periodo))
+        return self.consultarHistorico(self.simbolo(item), intervalo, period=periodo)
+
+    def buscarHistoricoDesde(self, item: str, inicio, indice: bool = False) -> pd.DataFrame:
+        """Histórico diário de `inicio` até hoje; com indice=True, `item` é o símbolo do índice (ex.: ^BVSP)."""
+        simbolo = item if indice else self.simbolo(item)
+        return self.consultarHistorico(simbolo, DEFAULT_INTERVAL, colunas=COLUNAS_INDICE if indice else COLUNAS_ATIVO,
+                                       start=pd.Timestamp(inicio).strftime("%Y-%m-%d"))
+
+    indices: dict = {}
+
+    @classmethod
+    def limparCacheIndice(cls) -> None:
+        cls.indices.clear()
+
+    def buscarHistoricoIndice(self, simbolo: str = SIMBOLO_IBOVESPA, periodo: str = DEFAULT_PERIOD) -> pd.DataFrame:
+        """Histórico do índice no período (com aquecimento), com cache de 1 hora por período."""
+        chave = (simbolo, periodo)
+        agora = time.time()
+        guardado = YfinanceService.indices.get(chave)
+        if guardado is not None and agora - guardado[0] < INDICE_VALIDADE_SEGUNDOS:
+            return guardado[1]
+        if periodo in MESES_PERIODO:
+            historico = self.consultarHistorico(simbolo, DEFAULT_INTERVAL, colunas=COLUNAS_INDICE,
+                                                start=self.inicioComAquecimento(periodo))
+        else:
+            historico = self.consultarHistorico(simbolo, DEFAULT_INTERVAL, colunas=COLUNAS_INDICE, period=periodo)
+        YfinanceService.indices[chave] = (agora, historico)
+        return historico
+
+    def consultarHistorico(self, simbolo: str, intervalo: str, colunas=None, **janela) -> pd.DataFrame:
         try:
-            historico = yf.Ticker(simbolo).history(period=periodo, interval=intervalo)
+            historico = yf.Ticker(simbolo).history(interval=intervalo, **janela)
         except Exception as erro:
             logger.warning("Falha ao buscar histórico de %s: %r", simbolo, erro)
             raise self.traduzirErro(erro, simbolo)
@@ -86,7 +128,7 @@ class YfinanceService:
             raise ValueError(f"Nenhum dado encontrado para {simbolo}.")
 
         historico.index = pd.to_datetime(historico.index)
-        historico = historico[["Open", "High", "Low", "Close", "Volume"]].dropna()
+        historico = historico[colunas or COLUNAS_ATIVO].dropna()
         if historico.empty:
             raise ValueError(f"Nenhum dado válido encontrado para {simbolo}.")
         return historico

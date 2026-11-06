@@ -22,17 +22,8 @@ from src.models.services.GeminiService import GeminiService
 from src.models.services.ClaudeService import ClaudeService
 from src.models.services.IaService import criarServicoIa
 
-TEXTO = """RECOMENDAÇÃO: VENDA
-
-SOBRE A EMPRESA:
-Empresa de energia que explora petróleo.
-
-JUSTIFICATIVA:
-O RSI acima de 70 indica sobrecompra.
-
-RISCOS:
-- Volatilidade
-"""
+from tests.respostas_ia import respostaJson
+TEXTO = respostaJson("VENDA", "Empresa de energia que explora petróleo.", "O RSI acima de 70 indica sobrecompra.", ["Volatilidade"])
 
 requisicoes = []
 comportamento = {"resposta": None}
@@ -104,8 +95,9 @@ assert req.method == "POST" and str(req.url) == "https://openrouter.ai/api/v1/ch
 assert req.headers["Authorization"] == "Bearer chave-de-teste"
 assert req.headers.get("X-Title") == "InvestIA"
 assert corpo["messages"] == [{"role": "user", "content": svc.montarPrompt(stock, ind)}]
-assert corpo["temperature"] == 0.3 and corpo["max_tokens"] == 4096
-print("OK  OR3 POST /chat/completions com Bearer, X-Title, prompt e temperature 0.3")
+assert corpo["temperature"] == 0.3 and corpo["max_tokens"] == 8192
+assert corpo["reasoning"] == {"effort": "low"}, corpo.get("reasoning")
+print("OK  OR3 POST /chat/completions com Bearer, X-Title, prompt, temperature 0.3, max_tokens 8192 e raciocínio baixo")
 assert rec.recomendacao == "VENDA" and rec.item == "PETR4"
 assert rec.justificativa.startswith("O RSI") and rec.riscos == "- Volatilidade"
 assert "explora petróleo" in rec.resposta_completa

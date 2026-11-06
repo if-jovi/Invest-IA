@@ -48,6 +48,7 @@ def historicoFake(self, item, periodo="1y", intervalo="1d"):
 
 
 YfinanceService.buscarHistorico = historicoFake
+YfinanceService.buscarHistoricoIndice = lambda self, simbolo="^BVSP", periodo="1y": None  # comparacao-ibovespa.md
 YfinanceService.buscarInfo = lambda self, item: StockEntity(
     item=self.normalizarItem(item), nome=f"Empresa {self.normalizarItem(item)} S.A.", setor="Energia",
     segmento="Petroleo", descricao="Oil and gas company.")
@@ -56,17 +57,8 @@ YfinanceService.buscarInfoAtivo = lambda self, item: (
     if self.normalizarItem(item) == "ZZZZ9"
     else {"item": self.normalizarItem(item), "nome": f"Empresa {self.normalizarItem(item)} S.A.", "setor": "Energia"})
 
-TEXTO = """RECOMENDAÇÃO: COMPRA
-
-SOBRE A EMPRESA:
-A empresa atua no setor de energia.
-
-JUSTIFICATIVA:
-O RSI esta neutro.
-
-RISCOS:
-- Volatilidade
-"""
+from tests.respostas_ia import respostaJson
+TEXTO = respostaJson("COMPRA", "A empresa atua no setor de energia.", "O RSI esta neutro.", ["Volatilidade"])
 chamadasIA = []
 
 
