@@ -505,6 +505,44 @@ central do TCC.
   - **descrição atual da empresa:** vem do Yahoo de hoje, mesmo nas datas
     passadas.
 
+### 10.1 Resultados da avaliação histórica (06/11/2026)
+
+> **Amostra reduzida:** a avaliação foi interrompida por falta de tempo em
+> 42 de ≈ 200 casos previstos (PETR4 completo, 23 datas; VALE3, 19 datas).
+> Cada chamada ao modelo gratuito leva ≈ 1 minuto. Modelo
+> `nvidia/nemotron-3.5-super-vl:free`, período de análise de 1 ano, datas de
+> 06/11/2025 a 28/09/2026. Para ampliar, basta rodar
+> `python -m src.scripts.AvaliarIA` de novo: continua de onde parou.
+
+| Indicador | Valor | Margem (95%) |
+| --------- | ----- | ------------ |
+| Recomendações avaliadas | 42 (4 COMPRA, 1 VENDA, 37 MANTER) | — |
+| Acerto geral | 21,4% (9 de 42) | 11,7% a 35,9% |
+| Acerto de COMPRA | 50,0% (2 de 4) | 15,0% a 85,0% |
+| Acerto de VENDA | 0% (0 de 1) | 0% a 79,4% |
+| Acerto de MANTER | 18,9% (7 de 37) | 9,5% a 34,2% |
+| Taxa base (preço subiu em 20 pregões) | 64,3% | — |
+| Chance de ser sorte (COMPRA × taxa base) | p = 0,87 | — |
+| Acerto contra o Ibovespa (COMPRA/VENDA) | 60% (3 de 5) | 23,1% a 88,2% |
+| Retorno médio em 20 pregões: após COMPRA / geral | +0,43% / +4,57% | — |
+
+**Leitura dos números:**
+- **A IA é conservadora:** recomendou MANTER em 88% dos casos (37 de 42).
+  Com só 4 COMPRAS e 1 VENDA, as margens são enormes e o teste estatístico
+  não consegue afirmar nada (p = 0,87): **não dá para dizer que a IA é melhor
+  ou pior que "comprar sempre"**.
+- **MANTER erra muito por causa da faixa de 3%:** em 20 pregões, as ações
+  variaram em média 4,6%, então ficar dentro de ±3% é difícil. O critério de
+  MANTER é rígido para esse prazo, e isso derruba o acerto geral.
+- **Mercado em alta:** o preço subiu em 64% dos casos. Nesse cenário,
+  "comprar sempre" acerta muito, e é difícil qualquer estratégia superar essa
+  referência.
+- **Só dois ativos:** o resultado reflete PETR4 e VALE3 (petróleo e
+  mineração) e não pode ser generalizado para a bolsa.
+- **Conclusão para o TCC:** o protótipo mede o acerto de forma honesta e
+  estatística. Com o modelo gratuito, a IA tende a não se comprometer, e a
+  amostra não permite concluir que ela agrega valor ao investidor iniciante.
+
 ## 11. Banco de dados
 
 | Tabela | Conteúdo |
@@ -619,6 +657,9 @@ As integrações externas são simuladas (`yahoo_simulado.py`, `simulacoes.py`,
 
 **Ideias ainda não especificadas:**
 - avaliar a IA em vários horizontes (5, 20 e 60 pregões);
+- rever a faixa de acerto do MANTER (±3% em 20 pregões é rígida, seção 10.1)
+  ou torná-la proporcional à volatilidade do ativo;
+- comparar modelos de IA (gratuito × pago) na avaliação histórica;
 - incluir ações que saíram da bolsa, para reduzir o viés de sobrevivência
   (exige dados pagos);
 - usar o CDI como taxa livre de risco no Sharpe.
