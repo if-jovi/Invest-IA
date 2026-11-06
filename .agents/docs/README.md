@@ -16,7 +16,8 @@ consumo por agentes/assistentes IA.
   funciona hoje ([`relatorio-sistema.md`](./architecture/relatorio-sistema.md)).
 - [`guides/`](./guides/) — guias operacionais
   ([`getting-started.md`](./guides/getting-started.md)).
-- [`specs/`](./specs/) — especificações funcionais por domínio:
+- [`specs/`](./specs/) — especificações funcionais por domínio, todas
+  implementadas (cada uma traz o **Status** com a data e os testes):
   - [`catalogo-ativos.md`](./specs/catalogo-ativos.md) — catálogo completo de
     ações da B3 (JSON da brapi, seed offline) e autocomplete dos campos de ativo.
   - [`interface.md`](./specs/interface.md) — paleta, login, dashboard,

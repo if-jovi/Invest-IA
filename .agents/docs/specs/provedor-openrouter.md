@@ -13,6 +13,9 @@ padrão do sistema.
 
 ---
 
+> **Status:** implementada em 04/11/2026 (`tests/teste_openrouter.py`).
+> Revisada em 06/11/2026: `max_tokens` 8192 e raciocínio `low`.
+
 ## Contexto atual
 
 - `criarServicoIa()` escolhe entre `GeminiService` (padrão) e `ClaudeService`

@@ -12,6 +12,8 @@ recomendação de cada um, com um quadro comparativo e o detalhe por ativo.
 
 ---
 
+> **Status:** implementada em 04/11/2026 (`tests/teste_analise_multipla.py`).
+
 ## Contexto atual
 
 - A tela de Análise tem um `text_input` para um código;

@@ -14,6 +14,9 @@ autocomplete com valores digitados e fragmentos com atualização automática.
 
 ---
 
+> **Status:** implementada em 04/11/2026 (`tests/teste_estilo.py` e
+> `tests/teste_interface.py`). Ajuste para celular em 06/11/2026 (seção "Uso no celular").
+
 ## Contexto atual (evidência: screenshots de 03/11/2026)
 
 - Streamlit 1.35 com tema padrão (vermelho) e botão "Deploy" visível.

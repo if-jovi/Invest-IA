@@ -13,6 +13,9 @@ para o usuário buscar por código ou nome em vez de digitar o ticker de memóri
 
 ---
 
+> **Status:** implementada em 04/11/2026 (`tests/teste_catalogo.py` e
+> `tests/teste_interface.py`).
+
 ## Contexto atual
 
 - A tabela `itens_b3` (`item`, `nome`, `setor`, `ativo`) só ganha linhas quando

@@ -14,6 +14,9 @@ aberta.
 
 ---
 
+> **Status:** implementada em 04/11/2026 (`tests/teste_yfinance.py` e
+> `tests/teste_interface.py`).
+
 ## Contexto atual
 
 - `CarteiraService.enriquecer` chama `YfinanceService.buscarPrecoAtual` por
