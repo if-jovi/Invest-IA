@@ -153,6 +153,27 @@ Vale para cards, tabelas e textos. Valor ausente aparece como `-`.
   laranja, fundo transparente.
 - RSI com as faixas de sobrecompra (>70) e sobrevenda (<30) destacadas.
 
+## Uso no celular (ajuste de 06/11/2026)
+
+Para a banca, em que o júri acessa pelo celular via ngrok. Conferido com
+prints numa tela de 390×844 (iPhone) e de 1366 px (notebook).
+
+- **Menu lateral:** começa no estado `auto`. Fica aberto no computador e
+  fechado no celular, onde antes cobria a tela inteira após o login.
+- **Métricas (até 640 px):** 2 por linha, com rótulos que quebram linha em
+  vez de serem cortados com "…".
+- **Comportamento no período:** no computador, aparece em duas linhas (3 + 2),
+  porque 5 cards lado a lado cortavam os valores.
+- **Gráficos:** a legenda fica abaixo do gráfico. Até 640 px, a barra de
+  ferramentas do Plotly fica oculta, porque no toque ela ficava sempre
+  visível por cima dos títulos.
+- **Tabelas largas** (carteira, operações do backtesting): rolam na
+  horizontal dentro da própria tabela; a página não rola para o lado.
+- **Pendência conhecida:** a regra de estilo dos rótulos das métricas
+  (`div[data-testid="stMetricLabel"] p`, vinho e maiúsculas) nunca é
+  aplicada, porque o elemento é um `<label>`. Os rótulos aparecem no estilo
+  padrão.
+
 ## Critérios de aceite
 
 | ID | Critério |

@@ -58,7 +58,14 @@ padrão do sistema.
 - Cabeçalhos: `Authorization: Bearer <OPENROUTER_API_KEY>`,
   `X-Title: InvestIA`.
 - Corpo: `model`, `messages = [{"role": "user", "content": <prompt>}]`,
-  `temperature = 0.3`, `max_tokens = 4096`.
+  `temperature = 0.3`, `max_tokens = 8192` e `reasoning = {"effort": "low"}`.
+  - **Revisão de 06/11/2026:** antes era `max_tokens = 4096`, sem `reasoning`.
+    O modelo padrão "raciocina" antes de responder, e esse raciocínio consome o
+    mesmo limite. Num teste real, 2.889 de 3.313 tokens foram de raciocínio, e
+    uma resposta saiu cortada.
+  - Esforço baixo reduz o raciocínio e o tempo de resposta. O limite maior dá
+    folga (o modelo aceita até 131.072 tokens de saída, sem custo).
+  - Ver também [`analise-ia.md`](./analise-ia.md) (IA9, resposta cortada).
 - Timeout de 90 s; até 2 tentativas apenas para erro de rede/timeout
   (não repete 4xx).
 
@@ -95,7 +102,7 @@ Todas, exceto as duas primeiras, são `RuntimeError` (mesmo padrão do Gemini).
 | -- | -------- |
 | OR1 | Sem `IA_PROVEDOR` definido, `criarServicoIa()` devolve `OpenRouterService`; `gemini` e `claude` continuam funcionando; valor inválido levanta o `ValueError` atual citando também `openrouter`. |
 | OR2 | Sem `OPENROUTER_MODEL`, o modelo enviado é `nvidia/nemotron-3.5-super-vl:free`. |
-| OR3 | A requisição vai para `/chat/completions` com `Authorization: Bearer`, o prompt de `montarPrompt` em `messages[0].content` e `temperature` 0.3 (verificado em requisição simulada). |
+| OR3 | A requisição vai para `/chat/completions` com `Authorization: Bearer`, o prompt de `montarPrompt` em `messages[0].content` e `temperature` 0.3, `max_tokens` 8192 e `reasoning` `{"effort": "low"}` (verificado em requisição simulada). |
 | OR4 | Resposta válida vira `RecomendacoesEntity` com recomendação, sobre a empresa, justificativa e riscos, igual aos demais provedores. |
 | OR5 | Modelo configurado sem `:free` levanta o `ValueError` da tabela e nenhuma requisição é feita. |
 | OR6 | Chave ausente levanta o `ValueError` da tabela e nenhuma requisição é feita. |

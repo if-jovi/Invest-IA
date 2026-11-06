@@ -12,7 +12,20 @@ referência das recomendações e eliminar consultas repetidas na carteira.
 
 ---
 
-## Contexto atual
+> **Status:** implementada em 06/11/2026 (DB1–DB6 em
+> `tests/teste_persistencia.py`).
+>
+> - **Onde fica:** migrações em `migracoes/versions/`; `base.migrar(engine)`
+>   aplica as pendentes; `criarTabelas()` chama `migrar()`.
+> - **Banco antigo:** reconhecido pela ausência de `alembic_version` com
+>   `recomendacoes` presente.
+> - **SQLite:** a conversão de `data_referencia` copia o texto para uma
+>   coluna `DATE` nova em vez de usar `CAST`, que no SQLite transformaria
+>   `'2026-10-02'` em `2026`.
+> - **Tipo da coluna:** `DataIso` (em `base.py`) aceita texto `AAAA-MM-DD` ao
+>   gravar e filtrar; o DTO devolve a data como texto ISO.
+
+## Contexto atual (antes da implementação)
 
 - `criarTabelas()` usa `Base.metadata.create_all`, que não altera tabelas
   existentes: qualquer mudança de coluna exige `DROP TABLE` (dados perdidos).

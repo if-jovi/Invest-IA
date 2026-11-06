@@ -58,10 +58,13 @@ Service (regra de negócio e banco) → Entity (tabelas SQLAlchemy). Detalhes em
 | Análise com IA     | Indicadores técnicos + recomendação da LLM (JSON)  | [`specs/analise-ia.md`](./specs/analise-ia.md) |
 | Análise múltipla   | Até 5 ativos por vez, quadro comparativo           | [`specs/analise-multipla.md`](./specs/analise-multipla.md) |
 | Provedor de IA     | OpenRouter + NVIDIA Nemotron gratuito (padrão)     | [`specs/provedor-openrouter.md`](./specs/provedor-openrouter.md) |
-| Backtesting        | Simulação MACD + RSI vs buy and hold               | [`specs/backtesting.md`](./specs/backtesting.md) |
+| Backtesting        | MACD + RSI vs buy and hold, custos, Sharpe anual.  | [`specs/backtesting.md`](./specs/backtesting.md) |
 | Persistência       | Migrações Alembic, tipos e consultas               | [`specs/persistencia.md`](./specs/persistencia.md) |
 | Autenticação       | Cadastro e login (PBKDF2)                          | TODO |
 | Carteira           | Posições, preço médio, cotação atualizada          | [`specs/carteira.md`](./specs/carteira.md) |
+| Aquecimento        | Pregões extras para os indicadores                 | [`specs/historico-aquecimento.md`](./specs/historico-aquecimento.md) |
+| Ibovespa           | Comparação do ativo com o mercado                  | [`specs/comparacao-ibovespa.md`](./specs/comparacao-ibovespa.md) |
+| Desempenho da IA   | Taxa de acerto, margem de erro, teste estatístico  | [`specs/desempenho-ia.md`](./specs/desempenho-ia.md) |
 
 ## Glossário
 

@@ -50,7 +50,7 @@ falha). A tela recarrega o resumo a cada 60 s via `st.fragment(run_every=60)`.
 ## Inicialização
 
 `Main.py` chama `criarTabelas()` e `ItensB3Service.semearCatalogo()` uma vez por
-processo (`st.cache_resource`). `create_all` cria tabelas ausentes, mas não altera
+processo (`st.cache_resource`). `criarTabelas()` aplica as migrações Alembic pendentes (`migracoes/`), sem perder dados; antes era o `create_all`, que não altera
 as existentes; o seed insere só as ações do JSON que ainda não estão no banco.
 
 ---

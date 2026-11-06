@@ -12,7 +12,8 @@ consumo por agentes/assistentes IA.
 
 - [`overview.md`](./overview.md) — produto, audiência, stack e domínios.
 - [`architecture/`](./architecture/) — arquitetura atual
-  ([`overview.md`](./architecture/overview.md)).
+  ([`overview.md`](./architecture/overview.md)) e relatório completo de como o sistema
+  funciona hoje ([`relatorio-sistema.md`](./architecture/relatorio-sistema.md)).
 - [`guides/`](./guides/) — guias operacionais
   ([`getting-started.md`](./guides/getting-started.md)).
 - [`specs/`](./specs/) — especificações funcionais por domínio:
@@ -27,7 +28,16 @@ consumo por agentes/assistentes IA.
   - [`provedor-openrouter.md`](./specs/provedor-openrouter.md) — OpenRouter
     com modelos NVIDIA gratuitos como provedor padrão de IA.
   - [`analise-ia.md`](./specs/analise-ia.md) — contrato JSON da resposta da IA.
-  - [`backtesting.md`](./specs/backtesting.md) — métricas (índice de Sharpe).
+  - [`analise-periodo.md`](./specs/analise-periodo.md) — resumo do período no
+    prompt da IA e cache por ativo + data + período.
+  - [`backtesting.md`](./specs/backtesting.md) — Sharpe anualizado, custos da
+    B3 e posição aberta no fim.
+  - [`historico-aquecimento.md`](./specs/historico-aquecimento.md) — pregões
+    extras antes do período para o cálculo dos indicadores.
+  - [`comparacao-ibovespa.md`](./specs/comparacao-ibovespa.md) — retorno do
+    ativo comparado ao Ibovespa (análise, prompt e backtesting).
+  - [`desempenho-ia.md`](./specs/desempenho-ia.md) — taxa de acerto das
+    recomendações da IA (avaliação histórica e uso no app).
   - [`persistencia.md`](./specs/persistencia.md) — migrações Alembic e consultas.
 
 TODO: spec completa de autenticação (hoje coberta indiretamente por
