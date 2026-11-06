@@ -48,6 +48,7 @@ def buscarHistorico(self, item, periodo="1y", intervalo="1d"):
     return historicoFake(item, periodo)
 
 YfinanceService.buscarHistorico = buscarHistorico
+YfinanceService.buscarHistoricoIndice = lambda self, simbolo="^BVSP", periodo="1y": None  # comparacao-ibovespa.md
 YfinanceService.buscarInfo = lambda self, item: StockEntity(
     item=self.normalizarItem(item), nome=f"Empresa {self.normalizarItem(item)} S.A.", setor="Energia",
     segmento="Petroleo", descricao="Oil and gas company.")
@@ -68,20 +69,8 @@ YfinanceService.buscarCotacoes = buscarCotacoes
 YfinanceService.buscarPrecoAtual = lambda self, item: (_ for _ in ()).throw(
     AssertionError("CarteiraService deve usar buscarCotacoes (lote), nao buscarPrecoAtual"))
 
-TEXTO = """RECOMENDAÇÃO: COMPRA
-
-SOBRE A EMPRESA:
-A empresa atua no setor de energia.
-
-JUSTIFICATIVA:
-O RSI esta neutro.
-
-O MACD cruzou para cima.
-
-RISCOS:
-- Volatilidade do petroleo
-- Risco regulatorio
-"""
+from tests.respostas_ia import respostaJson
+TEXTO = respostaJson("COMPRA", "A empresa atua no setor de energia.", "O RSI esta neutro.\n\nO MACD cruzou para cima.", ["Volatilidade do petroleo", "Risco regulatorio"])
 chamadasIA = []
 class FakeMsg:
     def __init__(self, t): self.content = [type("B", (), {"text": t})()]
@@ -217,7 +206,8 @@ bt = BacktestController()
 b = bt.executar("PETR4", "1y", u["id"])
 m = b["metricas"]
 assert m["totalOperacoes"] == len(b["operacoes"]) > 0 and len(b["curvaAcumulada"]) == len(b["operacoes"])
-assert set(m) == {"totalOperacoes", "taxaAcerto", "retornoAcumulado", "retornoBuyHold", "drawdownMaximo", "sharpe"}
+assert set(m) == {"totalOperacoes", "taxaAcerto", "retornoAcumulado", "retornoBuyHold", "drawdownMaximo", "sharpe",
+                  "custoOperacaoPct", "retornoIbovespa"}  # backtesting.md (custos) e comparacao-ibovespa.md
 assert b["persistido"] is True
 with Session() as s:
     qtd1 = s.query(OperacoesEntity).filter_by(usuario_id=u["id"]).count()

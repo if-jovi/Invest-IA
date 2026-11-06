@@ -9,7 +9,7 @@ st.set_page_config(
     page_title="InvestIA",
     page_icon=":material/insights:",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
 Estilo.aplicarEstilo()
 

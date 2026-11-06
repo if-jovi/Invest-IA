@@ -44,7 +44,8 @@ CREATE TABLE operacoes (
 CREATE TABLE recomendacoes (
     id                 SERIAL PRIMARY KEY,
     item               VARCHAR(20) NOT NULL REFERENCES itens_b3(item),
-    data_referencia    VARCHAR(10) NOT NULL,
+    data_referencia    DATE NOT NULL,
+    periodo            VARCHAR(3),
     preco_atual        NUMERIC(10,2),
     rsi                NUMERIC(6,2),
     sinal_rsi          VARCHAR(20),
@@ -58,7 +59,8 @@ CREATE TABLE recomendacoes (
     justificativa      TEXT,
     riscos             TEXT,
     resposta_completa  TEXT,
+    sobre_empresa      TEXT,
     gerado_em          TIMESTAMP DEFAULT NOW()
 );
 
-CREATE INDEX ix_recomendacoes_item_data ON recomendacoes (item, data_referencia);
+CREATE INDEX ix_recomendacoes_item_data_periodo ON recomendacoes (item, data_referencia, periodo);

@@ -1,4 +1,6 @@
+from datetime import date
 from typing import Optional
+from sqlalchemy import func, select
 from src.models.base import Session
 from src.models.entities.RecomendacoesEntity import RecomendacoesEntity
 from src.models.services.ClaudeService import ClaudeService
@@ -8,13 +10,18 @@ def numero(valor) -> Optional[float]:
     return float(valor) if valor is not None else None
 
 
+def dataIso(valor) -> Optional[str]:
+    return valor.isoformat() if isinstance(valor, date) else valor
+
+
 class RecomendacoesService:
 
     def paraDto(self, rec: RecomendacoesEntity) -> dict:
         return {
             "id": rec.getId(),
             "item": rec.getItem(),
-            "dataReferencia": rec.getDataReferencia(),
+            "dataReferencia": dataIso(rec.getDataReferencia()),
+            "periodo": rec.getPeriodo(),
             "precoAtual": numero(rec.getPrecoAtual()),
             "rsi": numero(rec.getRsi()),
             "sinalRsi": rec.getSinalRsi(),
@@ -25,7 +32,8 @@ class RecomendacoesService:
             "sma50": numero(rec.getSma50()),
             "tendenciaSma": rec.getTendenciaSma(),
             "recomendacao": rec.getRecomendacao(),
-            "sobreEmpresa": ClaudeService.extrairSecao(rec.getRespostaCompleta(), "SOBRE_EMPRESA"),
+            "sobreEmpresa": rec.sobre_empresa
+            or ClaudeService.extrairSecao(rec.getRespostaCompleta(), "SOBRE_EMPRESA"),
             "justificativa": rec.getJustificativa() or "",
             "riscos": rec.getRiscos() or "",
             "geradoEm": rec.getGeradoEm(),
@@ -37,29 +45,41 @@ class RecomendacoesService:
             session.commit()
             return self.paraDto(rec)
 
-    def buscarPorItemEData(self, item: str, dataReferencia: str) -> Optional[dict]:
+    def buscarPorItemDataEPeriodo(self, item: str, dataReferencia: str, periodo: str) -> Optional[dict]:
+        if not periodo:
+            return None
         with Session() as session:
             rec = (
                 session.query(RecomendacoesEntity)
-                .filter_by(item=item, data_referencia=dataReferencia)
+                .filter_by(item=item, data_referencia=dataReferencia, periodo=periodo)
                 .order_by(RecomendacoesEntity.gerado_em.desc())
                 .first()
             )
             return self.paraDto(rec) if rec is not None else None
 
     def buscarUltimasPorItens(self, itens: list) -> dict:
-        resultado = {}
+        if not itens:
+            return {}
+        ordem = (
+            func.row_number()
+            .over(
+                partition_by=RecomendacoesEntity.item,
+                order_by=(RecomendacoesEntity.gerado_em.desc(), RecomendacoesEntity.id.desc()),
+            )
+            .label("ordem")
+        )
+        ranking = (
+            select(RecomendacoesEntity.id, ordem)
+            .where(RecomendacoesEntity.item.in_(itens))
+            .subquery()
+        )
+        consulta = (
+            select(RecomendacoesEntity)
+            .join(ranking, RecomendacoesEntity.id == ranking.c.id)
+            .where(ranking.c.ordem == 1)
+        )
         with Session() as session:
-            for item in itens:
-                rec = (
-                    session.query(RecomendacoesEntity)
-                    .filter_by(item=item)
-                    .order_by(RecomendacoesEntity.gerado_em.desc())
-                    .first()
-                )
-                if rec is not None:
-                    resultado[item] = self.paraDto(rec)
-        return resultado
+            return {rec.getItem(): self.paraDto(rec) for rec in session.scalars(consulta)}
 
     def buscarHistorico(self, item: str, limite: int = 20) -> list:
         with Session() as session:

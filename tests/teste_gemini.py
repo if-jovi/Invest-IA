@@ -15,17 +15,8 @@ from src.models.entities.StockEntity import StockEntity, IndicatorsEntity
 from src.models.services import GeminiService as modulo
 from src.models.services.IaService import criarServicoIa
 
-TEXTO = """RECOMENDAÇÃO: VENDA
-
-SOBRE A EMPRESA:
-Empresa de energia que explora petróleo.
-
-JUSTIFICATIVA:
-O RSI acima de 70 indica sobrecompra.
-
-RISCOS:
-- Volatilidade
-"""
+from tests.respostas_ia import respostaJson
+TEXTO = respostaJson("VENDA", "Empresa de energia que explora petróleo.", "O RSI acima de 70 indica sobrecompra.", ["Volatilidade"])
 
 chamadas = []
 comportamento = {"resposta": None, "erro": None}

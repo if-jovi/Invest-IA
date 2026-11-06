@@ -34,6 +34,25 @@ def historicoFake(periodo="1y"):
     return pd.DataFrame({"Open": p, "High": p + 0.4, "Low": p - 0.4, "Close": p, "Volume": 1000}, index=datas)
 
 YfinanceService.buscarHistorico = lambda self, item, periodo="1y", intervalo="1d": historicoFake(periodo)
+
+
+def indiceFake(periodo="1y"):
+    datas = pd.bdate_range(end="2026-10-02", periods=600, tz="America/Sao_Paulo")
+    return pd.DataFrame({"Close": np.linspace(120000.0, 130000.0, 600)}, index=datas)
+
+
+YfinanceService.buscarHistoricoIndice = lambda self, simbolo="^BVSP", periodo="1y": indiceFake(periodo)
+
+
+def historicoDesdeFake(self, item, inicio, indice=False):
+    serie = indiceFake() if indice else historicoFake("2y")
+    inicio = pd.Timestamp(inicio)
+    if inicio.tzinfo is None:
+        inicio = inicio.tz_localize(serie.index.tz)
+    return serie[serie.index >= inicio]
+
+
+YfinanceService.buscarHistoricoDesde = historicoDesdeFake
 YfinanceService.validarItem = lambda self, item: self.normalizarItem(item) != "ZZZZ9"
 YfinanceService.buscarInfo = lambda self, item: StockEntity(
     item=self.normalizarItem(item), nome=f"Empresa {self.normalizarItem(item)} S.A.", setor="Energia",
@@ -46,17 +65,8 @@ YfinanceService.buscarCotacoes = lambda self, itens, forcar=False: {
 }
 YfinanceService.buscarPrecoAtual = lambda self, item: 40.0
 
-TEXTO = """RECOMENDAÇÃO: COMPRA
-
-SOBRE A EMPRESA:
-A empresa atua no setor de energia.
-
-JUSTIFICATIVA:
-O RSI esta neutro e o MACD cruzou para cima.
-
-RISCOS:
-- Volatilidade do petroleo
-"""
+from tests.respostas_ia import respostaJson
+TEXTO = respostaJson()
 class FakeMsg:
     def __init__(self, t): self.content = [type("B", (), {"text": t})()]
 class FakeClient:

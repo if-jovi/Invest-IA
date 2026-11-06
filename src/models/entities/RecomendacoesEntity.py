@@ -2,7 +2,7 @@ from datetime import datetime
 from enum import Enum
 from sqlalchemy import Column, Integer, String, Numeric, Text, DateTime, ForeignKey, Index
 from sqlalchemy.orm import relationship
-from src.models.base import Base, agora
+from src.models.base import Base, DataIso, agora
 
 
 class TipoRecomendacao(str, Enum):
@@ -13,11 +13,14 @@ class TipoRecomendacao(str, Enum):
 
 class RecomendacoesEntity(Base):
     __tablename__ = "recomendacoes"
-    __table_args__ = (Index("ix_recomendacoes_item_data", "item", "data_referencia"),)
+    __table_args__ = (
+        Index("ix_recomendacoes_item_data_periodo", "item", "data_referencia", "periodo"),
+    )
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     item = Column(String(20), ForeignKey("itens_b3.item"), nullable=False)
-    data_referencia = Column(String(10), nullable=False)
+    data_referencia = Column(DataIso, nullable=False)
+    periodo = Column(String(3))
     preco_atual = Column(Numeric(10, 2))
     rsi = Column(Numeric(6, 2))
     sinal_rsi = Column(String(20))
@@ -31,6 +34,7 @@ class RecomendacoesEntity(Base):
     justificativa = Column(Text)
     riscos = Column(Text)
     resposta_completa = Column(Text)
+    sobre_empresa = Column(Text)
     gerado_em = Column(DateTime, default=agora)
 
     item_ativo = relationship("ItensB3Entity")
@@ -46,6 +50,12 @@ class RecomendacoesEntity(Base):
 
     def getDataReferencia(self) -> str:
         return self.data_referencia
+
+    def getPeriodo(self) -> str:
+        return self.periodo
+
+    def setPeriodo(self, periodo: str) -> None:
+        self.periodo = periodo
 
     def getPrecoAtual(self) -> float:
         return self.preco_atual

@@ -18,3 +18,19 @@ SMA_LONG = getattr(settings, "SMA_LONG", 50)
 
 RSI_OVERSOLD = getattr(settings, "RSI_OVERSOLD", 30)
 RSI_OVERBOUGHT = getattr(settings, "RSI_OVERBOUGHT", 70)
+
+ROTULOS_PERIODO = {"3mo": "3 meses", "6mo": "6 meses", "1y": "1 ano", "2y": "2 anos"}
+MESES_PERIODO = {"3mo": 3, "6mo": 6, "1y": 12, "2y": 24}
+# Pregões extras antes do período, só para o cálculo dos indicadores (historico-aquecimento.md)
+DIAS_AQUECIMENTO = getattr(settings, "DIAS_AQUECIMENTO", 150)
+
+# IA: seed fixo para respostas mais estáveis (analise-ia.md)
+SEED_IA = int(os.getenv("SEED_IA") or getattr(settings, "SEED_IA", 42))
+
+# Backtesting: custo por compra e por venda, em % (emolumentos + liquidação B3)
+CUSTO_OPERACAO_PCT = getattr(settings, "CUSTO_OPERACAO_PCT", 0.03)
+
+# Desempenho da IA (desempenho-ia.md)
+HORIZONTE_AVALIACAO = getattr(settings, "HORIZONTE_AVALIACAO", 20)
+FAIXA_MANTER_PCT = getattr(settings, "FAIXA_MANTER_PCT", 3.0)
+SIMBOLO_IBOVESPA = "^BVSP"

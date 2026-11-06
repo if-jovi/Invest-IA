@@ -16,7 +16,9 @@ def layoutBase(fig: go.Figure, altura: int) -> None:
         plot_bgcolor="rgba(0,0,0,0)",
         font=FONTE,
         margin=dict(l=10, r=10, t=40, b=10),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+        # legenda abaixo do gráfico: no topo ela colide com a barra de ferramentas e,
+        # no celular, quebra em várias linhas por cima dos títulos
+        legend=dict(orientation="h", yanchor="top", y=-0.08, xanchor="left", x=0),
         hoverlabel=dict(bgcolor=Estilo.BRANCO, font=FONTE),
         separators=",.",
     )

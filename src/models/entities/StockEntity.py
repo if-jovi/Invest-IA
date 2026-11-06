@@ -34,6 +34,9 @@ class IndicatorsEntity:
     sma_long: float = 0.0
     tendencia_sma: str = "neutro"
     historico: Optional[pd.DataFrame] = field(default=None, repr=False)
+    periodo: Optional[str] = None
+    resumo_periodo: Optional[dict] = None
+    ibovespa: Optional[dict] = None
 
     def paraDicionario(self) -> dict:
         dados = self.__dict__.copy()

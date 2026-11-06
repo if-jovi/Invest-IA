@@ -5,7 +5,8 @@ from google import genai
 from google.genai import errors, types
 from src.models.entities.RecomendacoesEntity import RecomendacoesEntity
 from src.models.entities.StockEntity import StockEntity, IndicatorsEntity
-from src.models.services.ClaudeService import ClaudeService
+from src.models.Parametros import SEED_IA
+from src.models.services.ClaudeService import ClaudeService, ESQUEMA_RESPOSTA, MENSAGEM_CORTADA
 
 logger = logging.getLogger(__name__)
 
@@ -83,6 +84,9 @@ class GeminiService(ClaudeService):
         if retorno is not None and getattr(retorno, "block_reason", None):
             raise RuntimeError("A IA bloqueou esta solicitação. Tente novamente.")
 
+        candidatos = getattr(resposta, "candidates", None) or []
+        if candidatos and "MAX_TOKENS" in str(getattr(candidatos[0], "finish_reason", "")):
+            raise RuntimeError(MENSAGEM_CORTADA)
         texto = (resposta.text or "").strip()
         if not texto:
             raise RuntimeError(
@@ -90,14 +94,18 @@ class GeminiService(ClaudeService):
             )
         return texto
 
-    def gerar(self, prompt: str, maximoTokens: int = MAXIMO_TOKENS):
+    def gerar(self, prompt: str, maximoTokens: int = MAXIMO_TOKENS, estruturado: bool = False):
+        extras = (
+            {"response_mime_type": "application/json", "response_json_schema": ESQUEMA_RESPOSTA}
+            if estruturado else {}
+        )
         try:
             with self.cliente() as cliente:
                 return cliente.models.generate_content(
                     model=self.modelo(),
                     contents=prompt,
                     config=types.GenerateContentConfig(
-                        max_output_tokens=maximoTokens, temperature=0.3
+                        max_output_tokens=maximoTokens, temperature=0.3, seed=SEED_IA, **extras
                     ),
                 )
         except Exception as erro:
@@ -111,7 +119,7 @@ class GeminiService(ClaudeService):
             raise ValueError(
                 "A chave GEMINI_API_KEY não está configurada no arquivo .env."
             )
-        resposta = self.gerar(self.montarPrompt(stock, ind))
+        resposta = self.gerar(self.montarPrompt(stock, ind), estruturado=True)
         return self.interpretar(self.extrairTexto(resposta), ind)
 
     def testarConexao(self) -> str:
