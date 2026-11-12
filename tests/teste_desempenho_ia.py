@@ -1,4 +1,4 @@
-"""Spec: .agents/docs/specs/desempenho-ia.md (DI1-DI6, DI9, DI10).
+"""Testes de desempenho da IA (DI1-DI6, DI9, DI10).
 
 DI7 (migração) está em teste_persistencia.py; DI8 (tela) em teste_interface.py.
 SQLite temporário; Yahoo e IA simulados.

@@ -1,4 +1,4 @@
-"""Spec: .agents/docs/specs/analise-multipla.md (AM1-AM6).
+"""Testes de análise múltipla (AM1-AM6).
 
 SQLite temporário; Yahoo e IA simulados.
 """

@@ -1,4 +1,4 @@
-"""Spec: .agents/docs/specs/historico-aquecimento.md (AQ1-AQ5).
+"""Testes de aquecimento do histórico (AQ1-AQ5).
 
 Yahoo simulado; sem banco (o backtesting roda sem usuário, sem gravar).
 """

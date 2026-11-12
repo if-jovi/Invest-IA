@@ -1,4 +1,4 @@
-"""Spec: .agents/docs/specs/backtesting.md (BT1-BT3, BT5-BT7 e casos-limite).
+"""Testes de backtesting (BT1-BT3, BT5-BT7 e casos-limite).
 
 BT4 (rótulos na tela) está em teste_interface.py. Séries montadas à mão com as
 colunas que a simulação usa (Close, MACD, MACD_Sig, RSI).

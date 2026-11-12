@@ -1,4 +1,4 @@
-"""Spec: .agents/docs/specs/provedor-openrouter.md (OR1-OR10).
+"""Testes de provedor OpenRouter (OR1-OR10).
 
 Usa httpx.MockTransport: nenhuma chamada real ao OpenRouter.
 """

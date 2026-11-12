@@ -1,4 +1,4 @@
-"""Spec: .agents/docs/specs/analise-periodo.md (PE1-PE9, PE11 e casos-limite).
+"""Testes de análise por período (PE1-PE9, PE11 e casos-limite).
 
 Revisado para historico-aquecimento.md: os fakes trazem ~100 pregões de
 aquecimento e o resumo considera só o período.

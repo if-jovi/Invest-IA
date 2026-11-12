@@ -1,6 +1,6 @@
 """Identidade visual do InvestIA.
 
-Paleta e regras de contraste: .agents/docs/specs/interface.md.
+Paleta e regras de contraste da interface.
 Nenhuma outra view deve declarar cor em hexadecimal: use as constantes daqui.
 """
 from html import escape
@@ -71,7 +71,35 @@ div[data-testid="stMetricLabel"] p {{
   color: var(--ia-vinho); font-weight: 600; font-size: 0.82rem;
   text-transform: uppercase; letter-spacing: 0.04em;
 }}
-div[data-testid="stMetricValue"] {{ color: var(--ia-texto); font-weight: 800; }}
+div[data-testid="stMetricValue"] {{
+  color: var(--ia-texto); font-weight: 800;
+  font-size: 1.5rem; line-height: 1.25;
+}}
+div[data-testid="stMetricValue"] > div,
+div[data-testid="stMetricValue"] > div p,
+div[data-testid="stMetricDelta"] > div,
+div[data-testid="stMetricDelta"] > div p,
+div[data-testid="stMetricLabel"] > div,
+div[data-testid="stMetricLabel"] p {{
+  white-space: normal !important;
+  text-overflow: clip !important;
+  overflow-wrap: break-word;
+}}
+
+/* Cards do resumo da carteira: 5 em linha no desktop e 3 + 2 quando a janela
+   fica estreita (no celular continua valendo a regra de 2 por linha). */
+.st-key-cardsCarteira div[data-testid="stHorizontalBlock"] {{
+  flex-wrap: wrap !important; gap: 0.5rem !important;
+}}
+.st-key-cardsCarteira div[data-testid="stColumn"] {{
+  flex: 1 1 0 !important; min-width: 10rem !important;
+}}
+@media (max-width: 1100px) and (min-width: 641px) {{
+  .st-key-cardsCarteira div[data-testid="stColumn"] {{
+    flex: 1 1 calc(33.333% - 0.34rem) !important;
+    min-width: calc(33.333% - 0.34rem) !important;
+  }}
+}}
 
 /* Abas */
 button[data-baseweb="tab"] p {{ font-weight: 600; }}

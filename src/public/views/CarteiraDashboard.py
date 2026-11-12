@@ -23,20 +23,21 @@ COLUNAS_TABELA = {
 
 
 def renderCards(resumo: dict) -> None:
-    linha = st.columns(5)
-    linha[0].metric("Valor investido", moeda(resumo["valorInvestido"]))
-    linha[1].metric("Valor atual", moeda(resumo["valorAtual"]))
-    linha[2].metric(
-        "Resultado",
-        moeda(resumo["resultado"]),
-        delta=variacao(resumo["resultadoPct"]) if resumo["resultadoPct"] is not None else None,
-    )
-    linha[3].metric(
-        "Variação do dia",
-        variacao(resumo["variacaoDia"]),
-        delta=moeda(ganhoDoDia(resumo["itens"])) if resumo["variacaoDia"] is not None else None,
-    )
-    linha[4].metric("Ativos na carteira", len(resumo["itens"]))
+    with st.container(key="cardsCarteira"):
+        linha = st.columns(5)
+        linha[0].metric("Valor investido", moeda(resumo["valorInvestido"]))
+        linha[1].metric("Valor atual", moeda(resumo["valorAtual"]))
+        linha[2].metric(
+            "Resultado",
+            moeda(resumo["resultado"]),
+            delta=variacao(resumo["resultadoPct"]) if resumo["resultadoPct"] is not None else None,
+        )
+        linha[3].metric(
+            "Variação do dia",
+            variacao(resumo["variacaoDia"]),
+            delta=moeda(ganhoDoDia(resumo["itens"])) if resumo["variacaoDia"] is not None else None,
+        )
+        linha[4].metric("Ativos na carteira", len(resumo["itens"]))
 
 
 def ganhoDoDia(itens: list) -> float:

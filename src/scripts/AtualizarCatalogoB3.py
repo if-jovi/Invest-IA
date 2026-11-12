@@ -1,7 +1,6 @@
 """Atualiza src/data/ativos_b3.json com as ações da B3 listadas na brapi.dev.
 
 Uso: python -m src.scripts.AtualizarCatalogoB3
-Spec: .agents/docs/specs/catalogo-ativos.md
 """
 import json
 import re

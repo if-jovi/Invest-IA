@@ -1,4 +1,4 @@
-"""Spec: .agents/docs/specs/persistencia.md (DB1-DB6 e casos-limite).
+"""Testes de persistência (DB1-DB6 e casos-limite).
 
 Contrato: as migrações Alembic ficam em `migracoes/` e `base.migrar(engine)`
 aplica as pendentes (`base.criarTabelas()` passa a chamar `migrar()`).

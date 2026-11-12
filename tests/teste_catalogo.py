@@ -1,4 +1,4 @@
-"""Spec: .agents/docs/specs/catalogo-ativos.md (CA1-CA9, CA13).
+"""Testes de catálogo de ativos (CA1-CA9, CA13).
 
 SQLite temporário; Yahoo e rede substituídos por dublês que falham se chamados.
 """

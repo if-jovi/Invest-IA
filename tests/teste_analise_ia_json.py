@@ -1,4 +1,4 @@
-"""Spec: .agents/docs/specs/analise-ia.md (IA1-IA5, IA7, IA8).
+"""Testes de análise por IA (IA1-IA5, IA7, IA8).
 
 IA6 (traduções de erro) continua coberto por teste_claude, teste_gemini e
 teste_openrouter. Provedores simulados; SQLite temporário.

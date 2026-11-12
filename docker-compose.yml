@@ -65,6 +65,24 @@ services:
     networks:
       - invest_ia_network
 
+  # Tunel publico opcional (nao sobe no "up" normal).
+  # Uso: docker compose --profile tunnel up -d ngrok
+  # Se NGROK_DOMAIN estiver definido no .env, usa o dominio estatico; senao, URL aleatoria.
+  ngrok:
+    image: ngrok/ngrok:3
+    container_name: invest_ia_ngrok
+    restart: unless-stopped
+    profiles: ["tunnel"]
+    command: http app:8501 ${NGROK_DOMAIN:+--url=${NGROK_DOMAIN}} --log stdout
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN:-}
+    ports:
+      - "4040:4040"  # inspetor: http://localhost:4040
+    depends_on:
+      - app
+    networks:
+      - invest_ia_network
+
 # Rede compartilhada entre os servicos
 networks:
   invest_ia_network:

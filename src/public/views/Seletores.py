@@ -1,4 +1,4 @@
-"""Autocomplete de ativos do catálogo (spec: catalogo-ativos.md).
+"""Autocomplete de ativos do catálogo da B3.
 
 As opções são os códigos (PETR4); o que aparece na tela é "PETR4 — Nome".
 O usuário também pode digitar um código que não está na lista.

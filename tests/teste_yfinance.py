@@ -55,7 +55,7 @@ except ValueError as e:
     assert "ZZZZ9 não foi encontrado na B3" in str(e), e
 print("OK  ticker que realmente nao existe -> ValueError 'nao foi encontrado na B3'")
 
-# ---- Cotações em lote (spec .agents/docs/specs/carteira.md, CT1-CT6) ----
+# ---- Cotações em lote (CT1-CT6) ----
 from datetime import datetime
 from types import SimpleNamespace
 import numpy as np

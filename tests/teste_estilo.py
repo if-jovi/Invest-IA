@@ -1,5 +1,5 @@
-"""Specs: .agents/docs/specs/interface.md (UI1, UI2, UI3, UI5, UI11) e
-.agents/docs/specs/carteira.md (CT9) — verificações estáticas de
+"""Specs: interface (UI1, UI2, UI3, UI5, UI11) e
+carteira (CT9) — verificações estáticas de
 dependências, tema, paleta, formatação e estrutura das telas.
 """
 import ast

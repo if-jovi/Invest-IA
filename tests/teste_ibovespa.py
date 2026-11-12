@@ -1,4 +1,4 @@
-"""Spec: .agents/docs/specs/comparacao-ibovespa.md (IB1-IB3, IB5, IB6).
+"""Testes de comparação com o Ibovespa (IB1-IB3, IB5, IB6).
 
 IB4 (cards na tela) está em teste_interface.py. Yahoo e IA simulados.
 """
